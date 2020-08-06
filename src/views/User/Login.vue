@@ -153,22 +153,23 @@ export default {
     submitForm(formName) {
           this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.axios.post('http://localhost:8082/api/v1/user/login.do',this.ruleFormRe).then(
+                        this.axios.post('api/v1/user/login.do',this.ruleFormRe).then(
                             function(resp){
-                                console.log(resp.code);
-                                if(resp.code==0){
-                                    _this.$alert('注册成功','提示',{
-                                        confirmButtonText:'确定',
-                                        callback:action => {
-                                            _this.$router.push({name:'Login'})
-                                        }
-                                    });
+                                console.log(resp);
+                            //     if(resp.code==0){
+                            //         _this.$alert('注册成功','提示',{
+                            //             confirmButtonText:'确定',
+                            //             callback:action => {
+                            //                 _this.$router.push({name:'Login'})
+                            //             }
+                            //         });
 
-                                }
-                            }
-                        )
+                            //     }
+                            // }
+                        
 
 
+                    })
                     }
                     else {
                         console.log('error submit!!');
