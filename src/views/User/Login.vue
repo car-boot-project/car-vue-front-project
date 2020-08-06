@@ -44,6 +44,8 @@
 
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')" round>登录</el-button>
+                                  
+
                 </el-form-item>
                 <el-form-item>
                   <el-link href="#">
@@ -140,8 +142,9 @@ export default {
 
     return {
       ruleForm: {
-        password: "",
-        username: ""
+        username: "张三丰",
+        password: "123",
+       
       },
       rules: {
         password: [{ validator: validatePass, trigger: "blur" }],
@@ -149,26 +152,43 @@ export default {
       }
     };
   },
+  created(){
+    const _this = this;
+       this.$axios.post('api/v1/user/login.do',
+       _this.$qs.stringify(this.ruleForm)
+       ).then(
+           function(resp){
+            _this.$alert("注册成功！")
+           }
+
+       ).catch(error=>
+       {
+         console.log(error);
+       }
+       
+       );
+
+  },
   methods: {
+
     submitForm(formName) {
+      const _this = this;
           this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.axios.post('api/v1/user/login.do',this.ruleFormRe).then(
-                            function(resp){
+                        this.$axios.post('api/v1/user/login.do',_this.$qs.stringify(this.ruleForm)).then(
+                            res=>{
                                 console.log(resp);
-                            //     if(resp.code==0){
-                            //         _this.$alert('注册成功','提示',{
-                            //             confirmButtonText:'确定',
-                            //             callback:action => {
-                            //                 _this.$router.push({name:'Login'})
-                            //             }
-                            //         });
+                                // if(resp.code==0){
+                                //     _this.$alert('注册成功','提示',{
+                                //         confirmButtonText:'确定',
+                                //         callback:action => {
+                                //             _this.$router.push({name:'Login'})
+                                //         }
+                                //     });
 
-                            //     }
+                                // }
                             // }
-                        
-
-
+                    
                     })
                     }
                     else {
