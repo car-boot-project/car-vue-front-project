@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="managelogin">
     <el-row :gutter="20">
       <el-col :span="14" :offset="5">
         <el-card class="box-card">
@@ -56,8 +56,8 @@
 
 
 <style scoped>
-.login {
-  background-color: rgba(26, 197, 83, 0.795);
+.managelogin {
+  background-color: rgba(248, 163, 202, 0.911);
   height: 30em;
 }
 /* 布局 */

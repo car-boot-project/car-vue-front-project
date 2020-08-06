@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/User/Login.vue'
 import Collections from '../views/User/Collections.vue'
 import manageLogin from '../views/Manage/manageLogin.vue'
+import manageUser from '../views/Manage/manageUser.vue'
 
 
 
@@ -40,6 +41,12 @@ Vue.use(VueRouter)
     path:'/managelogin',
     name:'manageLogin',
     component:manageLogin,
+  },
+  //管理员主页面
+  {
+    path:'/manageuser',
+    name:'manageUser',
+    component:manageUser,
   },
 
 ]
