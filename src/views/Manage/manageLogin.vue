@@ -26,7 +26,7 @@
                     type="text"
                     v-model="ruleForm.managename"
                     autocomplete="off"
-                    prefix-icon="el-icon-manage-solid"
+                    prefix-icon="el-icon-coffee-cup"
                     placeholder="管理员账号"
                   ></el-input>
                 </el-form-item>
@@ -36,7 +36,7 @@
                     type="password"
                     v-model="ruleForm.pass"
                     autocomplete="off"
-                    prefix-icon="el-icon-lock"
+                    prefix-icon="el-icon-key"
                     placeholder="密码"
                     show-password
                   ></el-input>
@@ -57,7 +57,7 @@
 
 <style scoped>
 .login {
-  background-color: rgb(26, 197, 83);
+  background-color: rgba(26, 197, 83, 0.795);
   height: 30em;
 }
 /* 布局 */
@@ -65,11 +65,11 @@
   margin-bottom: 20px;
 }
 .el-col {
-  border-radius: 4px;
+  border-radius: 6px;
 }
 /* 输入和按钮 */
 .el-input {
-  border-radius: 30px;
+  border-radius: 40px;
 }
 .el-button{
     width: 20em;
