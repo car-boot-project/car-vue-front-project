@@ -1,0 +1,18 @@
+<template>
+  <div class="collections">
+    <img alt="Vue logo" src="../../assets/logo.png">
+    
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+
+
+export default {
+  name: 'Collections',
+  components: {
+   
+  }
+}
+</script>

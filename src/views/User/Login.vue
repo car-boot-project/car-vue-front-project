@@ -4,7 +4,7 @@
       <el-col :span="14" :offset="5">
         <el-card class="box-card">
           <el-col :span="24" class="img_log">
-            <el-col :span="12">
+            <el-col :span="12" class="img_logo">
               <img alt="Vue logo" src="../../assets/logo.png" />
             </el-col>
 
@@ -17,6 +17,10 @@
                 label-width="100px"
                 class="demo-ruleForm"
               >
+               <el-form-item>
+                  <h3>会员登陆</h3>           
+                </el-form-item>
+
                 <el-form-item label="" prop="username">
                   <el-input
                     type="text"
@@ -87,13 +91,17 @@
 .box-card {
   width: 100%;
   height: 20em;
-  position: relative;
+  /* position: relative; */
   margin-top: 5em;
   border-radius: 30px;
 }
 .img_log {
-  position: relative;
-  margin-top: 5em;
+  /* position: relative; */
+  margin-top: 2em;
+}
+.img_logo{
+    /* position: relative; */
+    margin-top: 3em;
 }
 </style>
 <script>
