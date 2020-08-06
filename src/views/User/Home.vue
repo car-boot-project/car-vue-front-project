@@ -93,7 +93,7 @@
 				</li>
 				<li>
 					<img src="../../assets/timg01.jpg" />
-					<p>奥迪Q5</p>
+					<p>奥迪Q</p>
            <el-button type="info" round class="foodtype-button">了解更多</el-button>
 				</li>
 			</ul>

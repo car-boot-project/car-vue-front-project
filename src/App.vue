@@ -6,8 +6,6 @@
       <router-link to="/login">Login</router-link>
       <router-link to="/collections">Collections</router-link>
 
-
-
     </div>
     <router-view/>
   </div>
