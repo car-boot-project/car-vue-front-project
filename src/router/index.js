@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/User/Login.vue'
 import Collections from '../views/User/Collections.vue'
+import manageLogin from '../views/Manage/manageLogin.vue'
 
 
 
@@ -33,6 +34,12 @@ Vue.use(VueRouter)
     path:'/collections',
     name:'Collections',
     component:Collections,
+  },
+  // 管理员身份登录
+  {
+    path:'/managelogin',
+    name:'manageLogin',
+    component:manageLogin,
   },
 
 ]
