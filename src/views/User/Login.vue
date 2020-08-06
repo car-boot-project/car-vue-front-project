@@ -17,11 +17,11 @@
                 label-width="100px"
                 class="demo-ruleForm"
               >
-               <el-form-item>
-                  <h3>会员登陆</h3>           
+                <el-form-item>
+                  <h3>会员登陆</h3>
                 </el-form-item>
 
-                <el-form-item label="" prop="username">
+                <el-form-item label prop="username">
                   <el-input
                     type="text"
                     v-model="ruleForm.username"
@@ -31,10 +31,10 @@
                   ></el-input>
                 </el-form-item>
 
-                <el-form-item label="" prop="pass">
+                <el-form-item label prop="password">
                   <el-input
                     type="password"
-                    v-model="ruleForm.pass"
+                    v-model="ruleForm.password"
                     autocomplete="off"
                     prefix-icon="el-icon-lock"
                     placeholder="密码"
@@ -42,16 +42,18 @@
                   ></el-input>
                 </el-form-item>
 
-             
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm('ruleForm')" round>登录</el-button>                
+                  <el-button type="primary" @click="submitForm('ruleForm')" round>登录</el-button>
                 </el-form-item>
                 <el-form-item>
-                  <el-link href="#" >还没有账号？立即注册<i class="el-icon-right"></i></el-link>             
+                  <el-link href="#">
+                    还没有账号？立即注册
+                    <i class="el-icon-right"></i>
+                  </el-link>
                 </el-form-item>
-
               </el-form>
             </el-col>
+            
           </el-col>
         </el-card>
       </el-col>
@@ -76,8 +78,8 @@
 .el-input {
   border-radius: 30px;
 }
-.el-button{
-    width: 20em;
+.el-button {
+  width: 20em;
 }
 /* 卡片 */
 .text {
@@ -99,9 +101,9 @@
   /* position: relative; */
   margin-top: 2em;
 }
-.img_logo{
-    /* position: relative; */
-    margin-top: 3em;
+.img_logo {
+  /* position: relative; */
+  margin-top: 3em;
 }
 </style>
 <script>
@@ -114,7 +116,6 @@ export default {
 
 <script>
 export default {
-    
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === "") {
@@ -139,31 +140,51 @@ export default {
 
     return {
       ruleForm: {
-        pass: "",
-        username: "",
-       
+        password: "",
+        username: ""
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        username: [{ validator: validateUsername, trigger: "blur" }],
-    
+        password: [{ validator: validatePass, trigger: "blur" }],
+        username: [{ validator: validateUsername, trigger: "blur" }]
       }
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+          this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.axios.post('http://localhost:8082/api/v1/user/login.do',this.ruleFormRe).then(
+                            function(resp){
+                                console.log(resp.code);
+                                if(resp.code==0){
+                                    _this.$alert('注册成功','提示',{
+                                        confirmButtonText:'确定',
+                                        callback:action => {
+                                            _this.$router.push({name:'Login'})
+                                        }
+                                    });
+
+                                }
+                            }
+                        )
+
+
+                    }
+                    else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
+    },
+    // open2() {
+    //     this.$message({
+    //       message: '登录成功',
+    //       type: 'success'
+    //     });
+    //   },
   }
 };
 </script>
