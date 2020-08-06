@@ -4,7 +4,10 @@ import router from './router'
 import ElementUI from 'element-ui'
 import "element-ui/lib/theme-chalk/index.css"
 import './assets/style/theme/index.css'
-
+import 'font-awesome/css/font-awesome.css'
+import axios from 'axios'
+axios.defaults.baseURL="http://127.0.0.1:8082/";
+Vue.prototype.axios = axios
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 new Vue({
