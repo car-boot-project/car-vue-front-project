@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <el-row :gutter="20">
+   
       <el-col :span="14" :offset="5">
         <el-card class="box-card">
           <el-col :span="24" class="img_log">
@@ -46,7 +46,7 @@
                   <el-button type="primary" @click="submitForm('loginForm')" round>登录</el-button>
                 </el-form-item>
                 <el-form-item>
-                  <el-link href="#">
+                  <el-link @click="toRegister">
                     还没有账号？立即注册
                     <i class="el-icon-right"></i>
                   </el-link>
@@ -56,7 +56,7 @@
           </el-col>
         </el-card>
       </el-col>
-    </el-row>
+   
   </div>
 </template>
 
@@ -64,7 +64,7 @@
 <style scoped>
 .login {
   background-color: rgb(187, 159, 214);
-  height: 30em;
+  height: 600px;
 }
 /* 布局 */
 .el-row {
@@ -78,7 +78,7 @@
   border-radius: 30px;
 }
 .el-button {
-  width: 20em;
+  width: 220px;
 }
 /* 卡片 */
 .text {
@@ -91,7 +91,7 @@
 
 .box-card {
   width: 100%;
-  height: 20em;
+  height: 400px;
   /* position: relative; */
   margin-top: 5em;
   border-radius: 30px;
@@ -192,6 +192,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    toRegister(){
+      this.$router.push("/register")
     }
     // open2() {
     //     this.$message({

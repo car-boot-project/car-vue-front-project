@@ -6,10 +6,10 @@
       <el-card class="box-card" shadow="hover">
         <el-form
           :model="registerForm"
-          status-icon
+         
           :rules="rules"
           ref="registerForm"
-          label-width="100px"
+    
           class="demo-registerForm"
         >
           <el-form-item>
@@ -49,7 +49,7 @@
 
           <el-form-item label prop="userphone">
             <el-input
-              type="number"
+              type="text"
               v-model="registerForm.userphone"
               autocomplete="off"
               prefix-icon="el-icon-phone"
@@ -75,8 +75,10 @@
           </el-form-item>
           <el-form-item>
             <!-- <el-link type="danger">危险链接</el-link> -->
-            <el-link href="#" type="danger">
-              已有账号？去登录
+           
+            <el-link @click="toLogin"  type="danger">
+           已有账号？去登录
+              
               <i class="el-icon-right"></i>
             </el-link>
           </el-form-item>
@@ -119,7 +121,11 @@ export default {
     var validateUserphone = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入手机号码"));
-      } else {
+      } 
+      else if (!Number.isInteger(value)) {
+            callback(new Error('请输入数字'));
+          }
+      else {
         callback();
       }
     };
@@ -130,6 +136,7 @@ export default {
         callback();
       }
     };
+   
 
     return {
       registerForm: {
@@ -162,7 +169,7 @@ export default {
                   message: "注册成功！",
                   type: "success"
                 });
-                _this.$router.push({ name: "Login" });
+                _this.$router.push({ name: "Home" });
               } else {
                 _this.$alert(res.data.msg, "", {
                   confirmButtonText: "确定",
@@ -181,6 +188,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    toLogin(){
+        this.$router.push("/login");
     }
     // open2() {
     //     this.$message({
@@ -212,16 +222,16 @@ h2 {
   width: 20em;
 }
 /* 卡片 */
-.text {
+/* .text {
   font-size: 14px;
-}
+} */
 /* .item {
   padding: 18px 0;
 } */
 
 .box-card {
   width: 100%;
-  height: 26em;
+  height: 600px;
   /* position: relative; */
   margin-top: 5em;
   /* margin:0 auto; */
@@ -232,13 +242,11 @@ h2 {
 }
 /* 表单 */
 .el-form {
-  /* margin:0 auto;  */
-  margin-right: 4em;
+    width: 70%;
+  margin:0 auto; 
+  /* margin-right: 4em; */
   /* padding: 3em 0em; */
 }
-.el-form-item {
-  /* margin-right: 3em; */
-  /* margin:0 auto; */
-}
+
 /* 单选框 */
 </style>
