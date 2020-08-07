@@ -5,7 +5,7 @@
         <el-card class="box-card">
           <el-col :span="24" class="img_log">
             <el-col :span="12" class="img_logo">
-              <img alt="Vue logo" src="../../assets/logo.png" />
+              <img alt="Vue logo" src="../../assets/Login.png" />
             </el-col>
 
             <el-col :span="12">
@@ -31,10 +31,10 @@
                   ></el-input>
                 </el-form-item>
 
-                <el-form-item label prop="password">
+                <el-form-item label prop="userpassword">
                   <el-input
-                    type="password"
-                    v-model="loginForm.password"
+                    type="userpassword"
+                    v-model="loginForm.userpassword"
                     autocomplete="off"
                     prefix-icon="el-icon-lock"
                     placeholder="密码"
@@ -104,6 +104,9 @@
   /* position: relative; */
   margin-top: 3em;
 }
+img{
+  width: 100%;
+}
 </style>
 <script>
 // @ is an alias to /src
@@ -136,25 +139,25 @@ export default {
     return {
       loginForm: {
         username: "",
-        password: ""
+        userpassword: ""
       },
       rules: {
-        password: [{ validator: validatePass, trigger: "blur" }],
+        userpassword: [{ validator: validatePass, trigger: "blur" }],
         username: [{ validator: validateUsername, trigger: "blur" }]
       }
     };
   },
-  created() {
-    const _this = this;
-    this.$axios
-      .post("user/login", this.$qs.stringify(this.loginForm))
-      .then(reso => {
-        _this.console.log(resp);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  },
+  // created() {
+  //   const _this = this;
+  //   this.$axios
+  //     .post("user/login", this.$qs.stringify(this.loginForm))
+  //     .then(reso => {
+  //       _this.$console.log(resp);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // },
   methods: {
     submitForm(formName) {
       const _this = this;
@@ -163,6 +166,7 @@ export default {
           this.$axios
             .post("user/login", this.$qs.stringify(this.loginForm))
             .then(res => {
+              // _this.console.log(res.data);
               if (res.data.status == 0) {
                 this.$message({
                   message: "登陆成功！",
