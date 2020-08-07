@@ -21,24 +21,24 @@
                   <h3>会员登陆</h3>
                 </el-form-item>
 
-                <el-form-item label prop="userName">
+                <el-form-item label prop="username">
                   <el-input
                     type="text"
-                    v-model="loginForm.userName"
+                    v-model="loginForm.username"
                     autocomplete="off"
                     prefix-icon="el-icon-user-solid"
                     placeholder="用户名"
                   ></el-input>
                 </el-form-item>
 
-                <el-form-item label prop="userPassword">
+                <el-form-item label prop="userpassword">
                   <el-input
-                    type="userPassword"
-                    v-model="loginForm.userPassword"
+                    type="userpassword"
+                    v-model="loginForm.userpassword"
                     autocomplete="off"
                     prefix-icon="el-icon-lock"
                     placeholder="密码"
-                    show-userPassword
+                    show-password
                   ></el-input>
                 </el-form-item>
 
@@ -138,26 +138,26 @@ export default {
 
     return {
       loginForm: {
-        userName: "",
-        userPassword: ""
+        username: "",
+        userpassword: ""
       },
       rules: {
-        userPassword: [{ validator: validatePass, trigger: "blur" }],
-        userName: [{ validator: validateUsername, trigger: "blur" }]
+        userpassword: [{ validator: validatePass, trigger: "blur" }],
+        username: [{ validator: validateUsername, trigger: "blur" }]
       }
     };
   },
-  created() {
-    const _this = this;
-    this.$axios
-      .post("user/login", this.$qs.stringify(this.loginForm))
-      .then(reso => {
-        _this.console.log(resp);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  },
+  // created() {
+  //   const _this = this;
+  //   this.$axios
+  //     .post("user/login", this.$qs.stringify(this.loginForm))
+  //     .then(reso => {
+  //       _this.$console.log(resp);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // },
   methods: {
     submitForm(formName) {
       const _this = this;
@@ -166,6 +166,7 @@ export default {
           this.$axios
             .post("user/login", this.$qs.stringify(this.loginForm))
             .then(res => {
+              // _this.console.log(res.data);
               if (res.data.status == 0) {
                 this.$message({
                   message: "登陆成功！",

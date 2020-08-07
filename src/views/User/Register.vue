@@ -16,20 +16,20 @@
             <h2>会员注册</h2>
           </el-form-item>
 
-          <el-form-item label prop="userName">
+          <el-form-item label prop="username">
             <el-input
               type="text"
-              v-model="registerForm.userName"
+              v-model="registerForm.username"
               autocomplete="off"
               prefix-icon="el-icon-user-solid"
               placeholder="用户名"
             ></el-input>
           </el-form-item>
 
-          <el-form-item label prop="userPassword">
+          <el-form-item label prop="userpassword">
             <el-input
-              type="userPassword"
-              v-model="registerForm.userPassword"
+              type="userpassword"
+              v-model="registerForm.userpassword"
               autocomplete="off"
               prefix-icon="el-icon-lock"
               placeholder="密码"
@@ -38,7 +38,7 @@
           </el-form-item>
           <el-form-item label prop="checkPass">
             <el-input
-              type="userPassword"
+              type="userpassword"
               v-model="registerForm.checkPass"
               autocomplete="off"
               prefix-icon="el-icon-lock"
@@ -47,19 +47,19 @@
             ></el-input>
           </el-form-item>
 
-          <el-form-item label prop="userPhone">
+          <el-form-item label prop="userphone">
             <el-input
               type="number"
-              v-model="registerForm.userPhone"
+              v-model="registerForm.userphone"
               autocomplete="off"
               prefix-icon="el-icon-phone"
               placeholder="手机号码"
             ></el-input>
           </el-form-item>
-          <el-form-item label prop="userAddress">
+          <el-form-item label prop="useraddress">
             <el-input
               type="text"
-              v-model="registerForm.userAddress"
+              v-model="registerForm.useraddress"
               autocomplete="off"
               prefix-icon="el-icon-s-home"
               placeholder="地址"
@@ -103,7 +103,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.registerForm.userPassword) {
+      } else if (value !== this.registerForm.userpassword) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -133,19 +133,19 @@ export default {
 
     return {
       registerForm: {
-        userName: "",
-        userPassword: "",
+        username: "",
+        userpassword: "",
         checkPass: "",
-        userPhone: "",
-        userAddress: "",
+        userphone: "",
+        useraddress: "",
         gender: "男"
       },
       rules: {
-        userPassword: [{ validator: validatePass, trigger: "blur" }],
+        userpassword: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        userName: [{ validator: validateUsername, trigger: "blur" }],
-        userPhone: [{ validator: validateUserphone, trigger: "blur" }],
-        userAddress: [{ validator: validateUseraddress, trigger: "blur" }]
+        username: [{ validator: validateUsername, trigger: "blur" }],
+        userphone: [{ validator: validateUserphone, trigger: "blur" }],
+        useraddress: [{ validator: validateUseraddress, trigger: "blur" }]
       }
     };
   },
@@ -155,7 +155,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.$axios
-            .post("user/login", this.$qs.stringify(this.registerForm))
+            .post("user/register", this.$qs.stringify(this.registerForm))
             .then(res => {
               if (res.data.status == 0) {
                 this.$message({
