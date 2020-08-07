@@ -6,6 +6,7 @@ import Collections from '../views/User/Collections.vue'
 
 import manageLogin from '../views/Manage/manageLogin.vue'
 import manageUser from '../views/Manage/manageUser.vue'
+import manageCar from '../views/Manage/manageCar.vue'
 
 import Home from '../views/User/Home.vue'
 
@@ -37,6 +38,7 @@ Vue.use(VueRouter)
     name:'Collections',
     component:Collections,
   },
+
   // 管理员身份登录
   {
     path:'/managelogin',
@@ -48,6 +50,12 @@ Vue.use(VueRouter)
     path:'/manageuser',
     name:'manageUser',
     component:manageUser,
+  },
+  //管理汽车页面
+  {
+    path:'/managecar',
+    name:'manageCar',
+    component:manageCar,
   },
 
 ]

@@ -5,8 +5,10 @@
       <router-link to="/about">About</router-link>
       <router-link to="/login">Login</router-link>
       <router-link to="/collections">Collections</router-link>
+
       <router-link to="/manageuser">manageUser</router-link>
       <router-link to="/managelogin">manageLogin</router-link>
+      <router-link to="/managecar">manageCar</router-link>
 
     </div>
     <router-view/>
