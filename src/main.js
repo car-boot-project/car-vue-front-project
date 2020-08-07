@@ -8,7 +8,7 @@ import 'font-awesome/css/font-awesome.css'
 import axios from 'axios'
 import qs from 'qs'
 
-axios.defaults.baseURL="http://127.0.0.1:8082/";
+axios.defaults.baseURL="http://127.0.0.1:8082/api/v1/";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.$axios = axios;
 

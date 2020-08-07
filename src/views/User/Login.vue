@@ -10,12 +10,12 @@
 
             <el-col :span="12">
               <el-form
-                :model="ruleForm"
+                :model="loginForm"
                 status-icon
                 :rules="rules"
-                ref="ruleForm"
+                ref="loginForm"
                 label-width="100px"
-                class="demo-ruleForm"
+                class="demo-loginForm"
               >
                 <el-form-item>
                   <h3>会员登陆</h3>
@@ -24,7 +24,7 @@
                 <el-form-item label prop="username">
                   <el-input
                     type="text"
-                    v-model="ruleForm.username"
+                    v-model="loginForm.username"
                     autocomplete="off"
                     prefix-icon="el-icon-user-solid"
                     placeholder="用户名"
@@ -34,7 +34,7 @@
                 <el-form-item label prop="password">
                   <el-input
                     type="password"
-                    v-model="ruleForm.password"
+                    v-model="loginForm.password"
                     autocomplete="off"
                     prefix-icon="el-icon-lock"
                     placeholder="密码"
@@ -43,9 +43,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm('ruleForm')" round>登录</el-button>
-                                  
-
+                  <el-button type="primary" @click="submitForm('loginForm')" round>登录</el-button>
                 </el-form-item>
                 <el-form-item>
                   <el-link href="#">
@@ -55,7 +53,6 @@
                 </el-form-item>
               </el-form>
             </el-col>
-            
           </el-col>
         </el-card>
       </el-col>
@@ -123,9 +120,7 @@ export default {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
-        // if (this.ruleForm.checkPass !== "") {
-        //   this.$refs.ruleForm.validateField("checkPass");
-        // }
+   
         callback();
       }
     };
@@ -133,18 +128,15 @@ export default {
       if (value === "") {
         callback(new Error("请输入用户名"));
       } else {
-        // if (this.ruleForm.checkPass !== "") {
-        //   this.$refs.ruleForm.validateField("checkPass");
-        // }
+       
         callback();
       }
     };
 
     return {
-      ruleForm: {
-        username: "张三丰",
-        password: "123",
-       
+      loginForm: {
+        username: "",
+        password: ""
       },
       rules: {
         password: [{ validator: validatePass, trigger: "blur" }],
@@ -152,54 +144,51 @@ export default {
       }
     };
   },
-  created(){
+  created() {
     const _this = this;
-       this.$axios.post('api/v1/user/login.do',
-       _this.$qs.stringify(this.ruleForm)
-       ).then(
-           function(resp){
-            _this.$alert("注册成功！")
-           }
-
-       ).catch(error=>
-       {
-         console.log(error);
-       }
-       
-       );
-
+    this.$axios
+      .post("user/login", this.$qs.stringify(this.loginForm))
+      .then(reso => {
+        _this.console.log(resp);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
   methods: {
-
     submitForm(formName) {
       const _this = this;
-          this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        this.$axios.post('api/v1/user/login.do',_this.$qs.stringify(this.ruleForm)).then(
-                            res=>{
-                                console.log(resp);
-                                // if(resp.code==0){
-                                //     _this.$alert('注册成功','提示',{
-                                //         confirmButtonText:'确定',
-                                //         callback:action => {
-                                //             _this.$router.push({name:'Login'})
-                                //         }
-                                //     });
-
-                                // }
-                            // }
-                    
-                    })
-                    }
-                    else {
-                        console.log('error submit!!');
-                        return false;
-                    }
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.$axios
+            .post("user/login", this.$qs.stringify(this.loginForm))
+            .then(res => {
+              if (res.data.status == 0) {
+                this.$message({
+                  message: "登陆成功！",
+                  type: "success"
                 });
+                 _this.$router.push({name:'Home'})
+              }
+              else{
+                  _this.$alert(res.data.msg,'',{
+                  confirmButtonText:'确定',
+                      callback:action => {
+                        this.$router.go(0)
+                          // _this.loginForm.resetFields()
+                      },
+                  })
+              }
+            });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
+    }
     // open2() {
     //     this.$message({
     //       message: '登录成功',
