@@ -5,7 +5,7 @@
         <el-card class="box-card">
           <el-col :span="24" class="img_log">
             <el-col :span="12" class="img_logo">
-              <img alt="Vue logo" src="../../assets/logo.png" />
+              <img alt="Vue logo" src="../../assets/Login.png" />
             </el-col>
 
             <el-col :span="12">
@@ -21,24 +21,24 @@
                   <h3>会员登陆</h3>
                 </el-form-item>
 
-                <el-form-item label prop="username">
+                <el-form-item label prop="userName">
                   <el-input
                     type="text"
-                    v-model="loginForm.username"
+                    v-model="loginForm.userName"
                     autocomplete="off"
                     prefix-icon="el-icon-user-solid"
                     placeholder="用户名"
                   ></el-input>
                 </el-form-item>
 
-                <el-form-item label prop="password">
+                <el-form-item label prop="userPassword">
                   <el-input
-                    type="password"
-                    v-model="loginForm.password"
+                    type="userPassword"
+                    v-model="loginForm.userPassword"
                     autocomplete="off"
                     prefix-icon="el-icon-lock"
                     placeholder="密码"
-                    show-password
+                    show-userPassword
                   ></el-input>
                 </el-form-item>
 
@@ -104,6 +104,9 @@
   /* position: relative; */
   margin-top: 3em;
 }
+img{
+  width: 100%;
+}
 </style>
 <script>
 // @ is an alias to /src
@@ -135,12 +138,12 @@ export default {
 
     return {
       loginForm: {
-        username: "",
-        password: ""
+        userName: "",
+        userPassword: ""
       },
       rules: {
-        password: [{ validator: validatePass, trigger: "blur" }],
-        username: [{ validator: validateUsername, trigger: "blur" }]
+        userPassword: [{ validator: validatePass, trigger: "blur" }],
+        userName: [{ validator: validateUsername, trigger: "blur" }]
       }
     };
   },
