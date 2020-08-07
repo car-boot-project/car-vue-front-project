@@ -21,20 +21,20 @@
                   <h3>管理员登陆</h3>           
                 </el-form-item>
 
-                <el-form-item label="" prop="managename">
+                <el-form-item label="" prop="adminId">
                   <el-input
                     type="text"
-                    v-model="ruleForm.managename"
+                    v-model="ruleForm.adminId"
                     autocomplete="off"
                     prefix-icon="el-icon-coffee-cup"
                     placeholder="管理员账号"
                   ></el-input>
                 </el-form-item>
 
-                <el-form-item label="" prop="pass">
+                <el-form-item label="" prop="adminPw">
                   <el-input
                     type="password"
-                    v-model="ruleForm.pass"
+                    v-model="ruleForm.adminPw"
                     autocomplete="off"
                     prefix-icon="el-icon-key"
                     placeholder="密码"
@@ -121,7 +121,7 @@ export default {
         callback();
       }
     };
-    var validateManagename = (rule, value, callback) => {
+    var validateAdminId = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入管理员账号"));
       } else {
@@ -135,12 +135,12 @@ export default {
     return {
       ruleForm: {
         pass: "",
-        managename: "",
+        adminId: "",
        
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
-        managename: [{ validator: validateManagename, trigger: "blur" }],
+        adminId: [{ validator: validateAdminId, trigger: "blur" }],
     
       }
     };
