@@ -1,6 +1,7 @@
 <template>
 <div class="manageuser">
 <h2>
+  管理用户<i class="fa fa-gear" aria-hidden="true"></i>
 </h2>
   <el-table
     :data="tableData"
@@ -28,19 +29,35 @@
       </template>
     </el-table-column>
                     
-    <el-table-column prop="userAddress" label="地址" width="450">
+    <el-table-column prop="userAddress" label="地址" width="300">
       <template slot-scope="scope">
             <i class="el-icon-location-information"></i>
             {{scope.row.userAddress}}
       </template>
     </el-table-column>
 
+<!---封禁解禁用户
+<el-table-column fixed="right" label="用户状态" width="210">
+      <template slot-scope="scope">
+    <el-button size="small" @click.native.prevent="deleteRow(scope.$index, tableData)" type="info" round plain icon="el-icon-remove">封禁</el-button>
+  <el-button size="small" @click.native.prevent="deleteRow(scope.$index, tableData)" type="success" plain icon="el-icon-success" round>解禁</el-button>
+      </template>
+    </el-table-column>--->
+
     <el-table-column fixed="right" label="操作" width="180">
       <template slot-scope="scope">
     <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
-    type="danger" plain icon="el-icon-delete">移除</el-button>
+    type="danger" plain icon="el-icon-delete">删除</el-button>
       </template>
     </el-table-column>
+
+<el-table-column label="用户状态 封禁中/正常" prop="blacklist">
+                   <template slot-scope="scope" >
+                       <el-switch  v-model="scope.row.blacklist"  :active-value="1" :inactive-value="0" size="medium" @change="userStateChange(scope.row)">
+                       </el-switch>
+                   </template>
+                </el-table-column>
+
   </el-table>
 </div>
 </template>

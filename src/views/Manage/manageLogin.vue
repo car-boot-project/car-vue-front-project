@@ -5,17 +5,17 @@
         <el-card class="box-card">
           <el-col :span="24" class="img_log">
             <el-col :span="12" class="img_logo">
-              <img alt="Vue logo" src="../../assets/logo.png" />
+              <img alt="Vue logo" src="../../assets/manageLogin.png" />
             </el-col>
 
             <el-col :span="12">
               <el-form
-                :model="ruleForm"
+                :model="loginForm"
                 status-icon
                 :rules="rules"
-                ref="ruleForm"
+                ref="loginForm"
                 label-width="100px"
-                class="demo-ruleForm"
+                class="demo-loginForm"
               >
                <el-form-item>
                   <h3>管理员登陆</h3>           
@@ -24,7 +24,7 @@
                 <el-form-item label="" prop="adminId">
                   <el-input
                     type="text"
-                    v-model="ruleForm.adminId"
+                    v-model="loginForm.adminId"
                     autocomplete="off"
                     prefix-icon="el-icon-coffee-cup"
                     placeholder="管理员账号"
@@ -34,7 +34,7 @@
                 <el-form-item label="" prop="adminPw">
                   <el-input
                     type="password"
-                    v-model="ruleForm.adminPw"
+                    v-model="loginForm.adminPw"
                     autocomplete="off"
                     prefix-icon="el-icon-key"
                     placeholder="密码"
@@ -43,7 +43,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm('ruleForm')" round>管理员登陆</el-button>                
+                  <el-button type="primary" @click="submitForm('loginForm')" round>管理员登陆</el-button>                
                 </el-form-item>
               </el-form>
             </el-col>
@@ -57,7 +57,7 @@
 
 <style scoped>
 .managelogin {
-  background-color: rgba(248, 163, 202, 0.911);
+  background-color: rgba(255, 159, 204, 0.911);
   height: 30em;
 }
 /* 布局 */
@@ -96,7 +96,10 @@
 }
 .img_logo{
     /* position: relative; */
-    margin-top: 3em;
+    margin-top: 1em;
+}
+img{
+  width: 75%;
 }
 </style>
 <script>
@@ -111,45 +114,56 @@ export default {
 export default {
     
   data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        // if (this.ruleForm.checkPass !== "") {
-        //   this.$refs.ruleForm.validateField("checkPass");
-        // }
-        callback();
-      }
-    };
+    
     var validateAdminId = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入管理员账号"));
-      } else {
-        // if (this.ruleForm.checkPass !== "") {
-        //   this.$refs.ruleForm.validateField("checkPass");
-        // }
-        callback();
-      }
+      } 
+      else {callback();}
+    };
+    var validateAdminPw = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } 
+      else {callback();}
     };
 
     return {
-      ruleForm: {
-        pass: "",
+      loginForm: {
         adminId: "",
-       
+        adminPw: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
         adminId: [{ validator: validateAdminId, trigger: "blur" }],
+        adminPw: [{ validator: validateAdminPw, trigger: "blur" }],
     
       }
     };
   },
   methods: {
     submitForm(formName) {
+      const_this=this;
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.$axios
+          .post("manage/managelogin",this.$qs.stringify(this.loginForm))
+          .this(res=>{
+            if(res.data.status == 0){
+              this.$message({
+                message:"登陆成功",
+                type:"success"
+              });
+              _this.$router.push({name:'manageHome'})
+            }
+            else{
+              _this.$alert(res.data.msg,'',{
+                confirmButtonText:'确定',
+                callback:action=>{
+                  this.$router.go(0)
+                },
+              })
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;

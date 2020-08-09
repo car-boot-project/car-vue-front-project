@@ -1,11 +1,14 @@
 <template>
 <div class="managecar">
 <h2>
+  汽车管理<i class="fa fa-car" aria-hidden="true"></i>
 </h2>
   <el-table
     :data="tableData"
     style="width: 100%"
-    max-height="500">
+    max-height="500"
+    >
+    <!-- header-cell-style="{background:'#FAFA03'}" -->
     <!-- 汽车基本信息 -->
     <el-table-column prop="carName" label="汽车名称" width="160">
       <template slot-scope="scope">
@@ -48,7 +51,7 @@
       </template>
     </el-table-column>
 
-     <el-table-column prop="stock" label="库存" align="center" min-width="50">
+     <el-table-column prop="stock" label="库存" align="center" max-width="10">
          <template slot-scope="scope">
               <el-input v-model="scope.row.number" oninput="value=value.replace(/[^\d]/g,'')" maxlength="3">
                    {{scope.row.stock}}
@@ -61,19 +64,32 @@
                     <span style="color:#FFB7E9;font-size:16px" @click.prevent="delRow(scope.row,scope.$index)"><i class="el-icon-remove"></i></span>
                </template>
       </el-table-column>
+
      <!-- <el-table-column label="库存" align="center" width="200">
                 <template>
                   <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="库存"></el-input-number>
                 </template>
     </el-table-column>  -->
+
 <!-- 移除汽车信息 -->
-    <el-table-column fixed="right" label="操作" width="180">
+  <el-table-column fixed="right" label="操作" width="150">
       <template slot-scope="scope">
     <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
-    type="danger" plain icon="el-icon-delete">移除</el-button>
+    type="danger" plain icon="el-icon-delete">删除</el-button>
       </template>
-    </el-table-column>
+    </el-table-column> 
+
+    <el-table-column label=" " width="150">
+				<template scope="scope">
+					<el-button type="primary" round size="medium" @click="handleEdit(scope.$index, scope.row)" icon="el-icon-edit">编辑</el-button>
+					
+				</template>
+		</el-table-column>
+
   </el-table>
+
+
+  
 </div>
 </template>
 
@@ -96,10 +112,11 @@
                     row.number = row.number - 1
                 }
             }
+  
     },
     data() {
       return {
-
+        
         tableData: [{
           carName: '玛莎拉蒂',
           carBrand: '玛莎拉蒂',
