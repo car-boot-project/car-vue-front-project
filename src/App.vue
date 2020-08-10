@@ -10,7 +10,7 @@
       <router-link to="/manageuser">manageUser</router-link>
       <router-link to="/managelogin">manageLogin</router-link>
       <router-link to="/managecar">manageCar</router-link>
-      <router-link to="/managehome">manageHome</router-link>
+      <router-link to="/managelist">manageList</router-link>
 
     </div>
     <router-view/>
