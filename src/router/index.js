@@ -9,7 +9,7 @@ import Collections from '../views/User/Collections.vue'
 import manageLogin from '../views/Manage/manageLogin.vue'
 import manageUser from '../views/Manage/manageUser.vue'
 import manageCar from '../views/Manage/manageCar.vue'
-import manageHome from '../views/Manage/manageHome.vue'
+import manageList from '../views/Manage/manageList.vue'
 
 import Home from '../views/User/Home.vue'
 
@@ -54,12 +54,6 @@ Vue.use(VueRouter)
     name:'manageLogin',
     component:manageLogin,
   },
-  //管理员主页
-  {
-    path:'/managehome',
-    name:'/manageHome',
-    compontent:manageHome,
-  },
   //管理用户页面
   {
     path:'/manageuser',
@@ -71,6 +65,12 @@ Vue.use(VueRouter)
     path:'/managecar',
     name:'manageCar',
     component:manageCar,
+  },
+  //管理员列表
+  {
+    path:'/managelist',
+    name:'manageList',
+    component:manageList,
   },
 
 ]

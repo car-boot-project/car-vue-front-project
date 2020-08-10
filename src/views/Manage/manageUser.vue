@@ -3,6 +3,10 @@
 <h2>
   管理用户<i class="fa fa-gear" aria-hidden="true"></i>
 </h2>
+<el-menu>
+<el-menu-item><a href="http://localhost:8091/#/managelist" target="_blank">返回管理中心</a></el-menu-item>
+</el-menu>
+
   <el-table
     :data="tableData"
     style="width: 100%"
@@ -51,12 +55,22 @@
       </template>
     </el-table-column>
 
-    <el-table-column label="用户状态" prop="blacklist">
+    <!-- <el-table-column label="用户状态" prop="blacklist">
        <template slot-scope="scope" >
            <el-switch  v-model="scope.row.blacklist"  :active-value="1" :inactive-value="0" @change="userStateChange(scope.row)">
            </el-switch> 封禁
        </template>
+    </el-table-column> -->
+ <el-table-column label="用户状态" >
+           <el-switch  
+           v-model="value2" 
+           active-text="封禁" 
+           inactive-text="正常" >
+           </el-switch> 
+       
     </el-table-column>
+
+
 
   </el-table>
 </div>
@@ -64,6 +78,7 @@
 
 <script>
   export default {
+    name: 'manageuser',
     methods: {
       deleteRow(index, rows) {
         rows.splice(index, 1);
@@ -71,6 +86,7 @@
     },
     data() {
       return {
+        value2:true,
         tableData: [{
           userName: '岳小莎',
           userPassword: '123456',
