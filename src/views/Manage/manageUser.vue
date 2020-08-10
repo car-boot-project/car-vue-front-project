@@ -57,20 +57,20 @@
       </template>
     </el-table-column>
 
-    <!-- <el-table-column label="用户状态" prop="blacklist">
+     <el-table-column label="用户状态" prop="blacklist">
        <template slot-scope="scope" >
            <el-switch  v-model="scope.row.blacklist"  :active-value="1" :inactive-value="0" @change="userStateChange(scope.row)">
            </el-switch> 封禁
        </template>
-    </el-table-column> -->
- <el-table-column label="用户状态" >
+    </el-table-column>
+<!-- <el-table-column label="用户状态" >
            <el-switch  
            v-model="value2" 
            active-text="封禁" 
            inactive-text="正常" >
            </el-switch> 
        
-    </el-table-column>
+    </el-table-column> -->
 
 
 
@@ -88,7 +88,7 @@
     },
     data() {
       return {
-        value2:true,
+        //value2:true,
         tableData: [{
           userName: '岳小莎',
           userPassword: '123456',
