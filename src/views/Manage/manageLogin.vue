@@ -91,15 +91,15 @@
   border-radius: 30px;
 }
 .img_log {
-  /* position: relative; */
-  margin-top: 2em;
+  margin-top: 1em;
 }
 .img_logo{
-    /* position: relative; */
-    margin-top: 1em;
-}
+    margin-top: 0.5em;
+} 
 img{
-  width: 75%;
+   margin-left: -6em;
+  /*margin-bottom: -3em; */
+  width: 19.45%;
 }
 </style>
 <script>

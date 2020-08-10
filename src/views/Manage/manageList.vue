@@ -40,6 +40,8 @@
   
   <!-- <a href="http://localhost:8091/#/managecar" target="_blank">汽车管理</a>
   <el-menu-item index="5"><a href="http://localhost:8091/#/manageuser" target="_blank">用户管理</a></el-menu-item> -->
+
+<!-- 页面跳转 -->
 <el-menu-item index="4">
 <router-link to="/manageuser">前往用户管理中心</router-link>
 </el-menu-item>
