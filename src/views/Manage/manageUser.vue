@@ -4,7 +4,9 @@
   管理用户<i class="fa fa-gear" aria-hidden="true"></i>
 </h2>
 <el-menu>
-<el-menu-item><a href="http://localhost:8091/#/managelist" target="_blank">返回管理中心</a></el-menu-item>
+  <el-menu-item>
+<router-link to="/managelist">返回管理中心</router-link>
+</el-menu-item>
 </el-menu>
 
   <el-table
