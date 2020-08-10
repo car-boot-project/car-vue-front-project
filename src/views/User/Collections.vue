@@ -5,47 +5,55 @@
     </h3>
     <el-divider></el-divider>
 
-      <el-page-header @back="goBack" content></el-page-header>
+    <el-page-header @back="goBack" content></el-page-header>
 
-      <el-table
-        :data="car"
-        style="width: 90%"
-      >
-        <el-table-column label="" prop="carimg" >
-  
-        </el-table-column>
+    <el-table :data="car" style="width: 80%">
+      <el-table-column label width="200px">
+        <template slot-scope="scope">
+          <img :src="scope.row.carimg" alt />
+        </template>
 
-        <el-table-column label="车名" prop="carname">
+        <!-- <img :src='data:image/png;base64,'+carimg alt=""> -->
+      </el-table-column>
 
-        
-        </el-table-column>
-        <el-table-column label="品牌" prop="carbrand"></el-table-column>
-        <el-table-column label="价格" prop="carprice"></el-table-column>
-        <el-table-column label="车型" prop="carmodel"></el-table-column>
-        <el-table-column label="描述" prop="carnote"></el-table-column>
-        <el-table-column label="库存" prop="carstock"></el-table-column>
-        <el-table-column align="right">
-          <!-- <template slot="header" slot-scope>
+      <el-table-column label="车名" prop="carname" width="200px"></el-table-column>
+      <el-table-column label="品牌" prop="carbrand"></el-table-column>
+      <el-table-column label="价格" prop="carprice"></el-table-column>
+      <el-table-column label="车型" prop="carmodel"></el-table-column>
+      <el-table-column label="描述" prop="carnote" width="300px"></el-table-column>
+      <el-table-column label="库存" prop="carstock" width="80px" ></el-table-column>
+      <el-table-column align="right">
+        <!-- <template slot="header" slot-scope>
             <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
-          </template> -->
-          <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-            <el-button
+        </template>-->
+        <template slot-scope="scope">
+          <el-button
+            type="warning"
+            icon="el-icon-star-off"
+            circle
+            @click="CancelCollect(scope.row)"
+          ></el-button>
+          <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button> -->
+          <!-- <el-button
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
-            >Delete</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-  
+          >Delete</el-button>-->
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 <style  scoped>
-.el-table{
-
-  margin:0 auto;
-  
+.el-table {
+  /* background-color: rgb(187, 159, 214); */
+  margin: 0 auto;
+}
+img {
+  width: 100%;
+}
+.el-table-column {
+  margin: 0 auto;
 }
 </style>
 <script>
@@ -56,47 +64,75 @@ export default {
   components: {},
   data() {
     return {
-       car:[ 
-      ],
-    //   carid: 0,
-    //   carname: "",
-    //   carbrand: "",
-    //   carstock: 0,
-    //   carimg: "",
-    //   carprice: 0,
-    //   carmodel: "",
-    //   carnote: ""
-    // }
+      car: [],
+      //   carid: 0,
+      //   carname: "",
+      //   carbrand: "",
+      //   carstock: 0,
+      //   carimg: "",
+      //   carprice: 0,
+      //   carmodel: "",
+      //   carnote: ""
+      // }
 
-     userid:2020010010,
+      userid: 2020010003,
       search: ""
     };
   },
-    mounted() {
+  methods: {
+    CancelCollect(row) {
+      const _this = this;
+      this.$axios
+        .post("collects/remove?userid=" + this.userid + "&carid=" + row.carid)
+        .then(res => {
+          console.log(res);
+          if (res.data.status == 0) {
+                _this.getData();
+            this.$message({
+              message: "取消收藏成功！",
+              type: "success"
+            });
+            
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
+    getData() {
+      const _this = this;
+
+      this.$axios
+        .post("collects/get_collects_list_by_userid?userid=" + this.userid)
+        .then(res => {
+          console.log(res);
+          console.log(this.userid);
+          this.car = res.data.obj;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+     goBack() {
+        console.log('go back');
+      }
+  },
+  created() {
     const _this = this;
 
-    this.$axios
-      .post("collects/get_collects_list_by_userid", this.userid)
-      .then(res => {
-        console.log(res.data);
-         console.log(this.userid);
-        // this.car = res.data;
-        
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  },
-  methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
-    goBack() {
-      console.log("go back");
+      this.$axios
+        .post("collects/get_collects_list_by_userid?userid=" + this.userid)
+        .then(res => {
+          console.log(res);
+          console.log(this.userid);
+          this.car = res.data.obj;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-  }
+  
+  
 };
 </script>
