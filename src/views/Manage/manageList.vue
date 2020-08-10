@@ -7,11 +7,11 @@
                     class="el-menu-demo"
                     mode="horizontal"
                     @select="handleSelect"
-                    background-color="#545c64"
-                    text-color="#fff"
-                    active-text-color="#ffd04b">
+                    background-color="#FE929F"
+                    text-color="#000"
+                    active-text-color="#000">
                 <template slot="title"></template>
-                <el-menu-item index="1" disabled >我的管理中心</el-menu-item>
+                <el-menu-item index="1" width="100%" text-align="center">我的管理中心</el-menu-item>
                 </el-menu>
                 </el-header>
         <el-container>
@@ -21,9 +21,9 @@
                 class="el-menu-demo"
                 mode="horizontal"
                 @select="handleSelect"
-                background-color="#545c64"
+                background-color="#FE929F"
                 text-color="#fff"
-                active-text-color="#ffd04b">
+                active-text-color="#FE929F">
         <el-menu-item index="2">处理中心</el-menu-item>
         <el-submenu index="3">
     
@@ -54,6 +54,7 @@
         </el-aside>
         <el-main>
             请在左边选择管理详情，这里啥也没有！
+            
         </el-main>
     </el-container>
         </el-container>
@@ -89,8 +90,9 @@
     bottom: 0;
 }
 .el-header{
+  width: 100%;
     padding: 0;
-    z-index: 1000;
+    z-index: 10000;
 }
 .el-header .fr{
     float: right;
@@ -99,18 +101,16 @@
     border-bottom: 60px;
 }
 .el-aside{
-    background-color: #545c64;
+    background-color: #FCD3D1;
 }
 .el-aside .el-menu{
     border-right: none;
 }
 .el-main{
-    background-color: #E9EEF3;
+    background-color: #E5EDF8;
     color: #333;
     text-align: center;
     line-height: 160px;
 }
-img {
-  position: absolute;
-}
+
 </style>

@@ -97,9 +97,10 @@
     margin-top: 0.5em;
 } 
 img{
-   margin-left: -6em;
-  /*margin-bottom: -3em; */
-  width: 19.45%;
+   /*margin-left: -6em;
+  margin-bottom: -3em; */
+  margin-top: 0.6em;
+  width: 77%;
 }
 </style>
 <script>
