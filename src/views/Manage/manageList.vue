@@ -48,10 +48,8 @@
 <el-menu-item index="5">
 <router-link to="/managecar">前往汽车管理中心</router-link>
 </el-menu-item>
-
 </el-menu>
-            
-        </el-aside>
+      </el-aside>
         <el-main>
             请在左边选择管理详情，这里啥也没有！
             
@@ -59,9 +57,7 @@
     </el-container>
         </el-container>
 
- 
  </div>
-
 </template>
 
 <script>

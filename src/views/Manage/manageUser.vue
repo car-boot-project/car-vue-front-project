@@ -23,28 +23,28 @@
     <el-table-column prop="userName" label="用户名" width="200">
       <template slot-scope="scope">
             <i class="el-icon-user-solid"></i>
-            {{scope.row.userName}}
+            {{scope.row.username}}
       </template>
     </el-table-column>
 
     <el-table-column prop="userPassword" label="密码" width="200">
       <template slot-scope="scope">
             <i class="el-icon-unlock"></i>
-            {{scope.row.userPassword}}
+            {{scope.row.userpassword}}
       </template>
     </el-table-column>
 
     <el-table-column prop="userPhone" label="联系方式" width="260">
       <template slot-scope="scope">
             <i class="el-icon-phone-outline"></i>
-            {{scope.row.userPhone}}
+            {{scope.row.userphone}}
       </template>
     </el-table-column>
                     
     <el-table-column prop="userAddress" label="地址" width="300">
       <template slot-scope="scope">
             <i class="el-icon-location-information"></i>
-            {{scope.row.userAddress}}
+            {{scope.row.useraddress}}
       </template>
     </el-table-column>
 
@@ -82,15 +82,19 @@
 </div>
 </template>
 
-<script>
-export default {
-  name: "manageuser"
-};
-</script>
 
 <script>
   export default {
-
+    name: "manageuser",
+    mounted(){
+      const _this = this;
+       this.$axios
+            .get("admin/get_all_user_by_page?page="+this.page+"&offset="+this.offset)
+            .then(res => {
+              this.tableData = res.data.list;
+                // console.log(res.data);
+            })
+    },
     methods: {
 
       //返回管理中心
@@ -119,63 +123,9 @@ export default {
     data() {
       return {
         //value2:true,
-        tableData: [{
-          userName: '岳小莎',
-          userPassword: '123456',
-          userAddress: '上海市普陀区金沙江路 1518 弄',
-          userPhone: '13386861111'
-          
-        }, {
-          userName: '王小飞',
-          userPassword: '123456',
-          userAddress: '宜昌市西陵区大学路八号',
-          userPhone: '13386862222'
-        }, {
-          userName: '张小薇',
-          userPassword: '123456',
-          userAddress: '北京市朝阳区三里屯路19号',
-          userPhone: '13386863333'
-        }, {
-          userName: '宋小卓',
-          userPassword: '123456',
-          userAddress: '天津市南开区复康路55号',
-          userPhone: '13386864444'
-        }, {
-          userName: '张小朋',
-          userPassword: '123456',
-          userAddress: '青岛市城阳区正阳路30号',
-          userPhone: '13386865555'
-        }, 
-        {
-          userName: '仙女刘',
-          userPassword: '123456',
-          userAddress: '杭州市余杭区人民大道1556号',
-          userPhone: '13386866666'
-        },
-        {
-          userName: '岳小莎',
-          userPassword: '123456',
-          userAddress: '上海市普陀区金沙江路 1518 弄',
-          userPhone: '13386861111'
-          },
-          {
-          userName: '宋小卓',
-          userPassword: '123456',
-          userAddress: '天津市南开区复康路55号',
-          userPhone: '13386864444'
-        }, 
-        {
-          userName: '张小朋',
-          userPassword: '123456',
-          userAddress: '青岛市城阳区正阳路30号',
-          userPhone: '13386865555'
-        }, 
-        {
-          userName: '仙女刘',
-          userPassword: '123456',
-          userAddress: '杭州市余杭区人民大道1556号',
-          userPhone: '13386866666'
-        }]
+        tableData: [],
+        page:1,
+        offset:10
       }
     }
   }

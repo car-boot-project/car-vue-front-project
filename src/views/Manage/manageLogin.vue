@@ -24,7 +24,7 @@
                 <el-form-item label="" prop="adminId">
                   <el-input
                     type="text"
-                    v-model="loginForm.adminId"
+                    v-model="loginForm.adminid"
                     autocomplete="off"
                     prefix-icon="el-icon-coffee-cup"
                     placeholder="管理员账号"
@@ -34,7 +34,7 @@
                 <el-form-item label="" prop="adminPw">
                   <el-input
                     type="password"
-                    v-model="loginForm.adminPw"
+                    v-model="loginForm.adminpw"
                     autocomplete="off"
                     prefix-icon="el-icon-key"
                     placeholder="密码"
@@ -131,40 +131,45 @@ export default {
 
     return {
       loginForm: {
-        adminId: "",
-        adminPw: "",
+        adminid: "",
+        adminpw: "",
       },
       rules: {
-        adminId: [{ validator: validateAdminId, trigger: "blur" }],
-        adminPw: [{ validator: validateAdminPw, trigger: "blur" }],
+        adminid: [{ validator: validateAdminId, trigger: "blur" }],
+        adminpw: [{ validator: validateAdminPw, trigger: "blur" }],
     
       }
     };
   },
   methods: {
     submitForm(formName) {
-      const_this=this;
+      const _this=this;
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.$axios
-          .post("manage/managelogin",this.$qs.stringify(this.loginForm))
-          .this(res=>{
-            if(res.data.status == 0){
-              this.$message({
-                message:"登陆成功",
-                type:"success"
-              });
-              _this.$router.push({name:'manageHome'})
-            }
-            else{
-              _this.$alert(res.data.msg,'',{
-                confirmButtonText:'确定',
-                callback:action=>{
-                  this.$router.go(0)
-                },
-              })
-            }
-          });
+          console.log("校验成功");
+         this.$axios
+            .post("admin/login", this.$qs.stringify(this.loginForm))
+            .then(res => {
+              this.$setSessionStorage('admin',this.loginForm.adminid);
+              console.log(res.data);
+              if (res.data.status == 0) {
+                this.$message({
+                  message: "登陆成功！",
+                  type: "success",
+                  
+                });
+                 _this.$router.push({name:'manageList'})
+              }
+              else{
+                  _this.$alert(res.data.msg,'',{
+                  confirmButtonText:'确定',
+                      callback:action => {
+                        this.$router.go(0)
+                          // _this.loginForm.resetFields()
+                      },
+                  })
+              }
+            });
         } else {
           console.log("error submit!!");
           return false;
