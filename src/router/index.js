@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import Register from '../views/User/Register.vue'
 import Login from '../views/User/Login.vue'
 import Collections from '../views/User/Collections.vue'
+import CarDetail from '../views/User/CarDetail.vue'
 
 import manageLogin from '../views/Manage/manageLogin.vue'
 import manageUser from '../views/Manage/manageUser.vue'
@@ -46,6 +47,12 @@ Vue.use(VueRouter)
     path:'/collections',
     name:'Collections',
     component:Collections,
+  },
+  //车辆详情页
+  {
+    path:'/cardetail',
+    name:'CarDetail',
+    component:CarDetail,
   },
 
   // 管理员身份登录
