@@ -71,13 +71,13 @@
           </el-form-item>
           <el-form-item>
             <!-- <el-button type="primary" plain>主要按钮</el-button> -->
-            <el-button type="primary" round @click="submitForm('registerForm')">登录</el-button>
+            <el-button type="primary" round @click="submitForm('registerForm')">注册</el-button>
           </el-form-item>
           <el-form-item>
             <!-- <el-link type="danger">危险链接</el-link> -->
            
             <el-link @click="toLogin"  type="danger">
-           已有账号？去登录
+            已有账号？去登录
               
               <i class="el-icon-right"></i>
             </el-link>
