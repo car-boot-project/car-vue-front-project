@@ -1,26 +1,9 @@
 <template>
 <div>
-  <el-container style="height:7.4vw;margin-top:8vw;background-color: rgba(0,0,0,0.5);">
+  <el-container style="width:100%;height:8vw;background-color: rgba(0,0,0,0.5);">
   <el-aside width= 20vw>买立达</el-aside>
   <el-container>
-  <el-header>	
-	<div class="search">
- <div class="search">
-    <p v-if="this.$getSessionStorage('user')==null">
- <el-button type="success" plain>登录</el-button>
-  	<el-button type="info" plain>注册</el-button>
-
-    </p>
-    <p v-else>
-      <el-link :underline="false" @click="cancel">
-        <i class="el-icon-user-solid"></i>
-      {{this.$getSessionStorage('user').username}}
-      </el-link>
-      </p>
-	 
-	</div>
-	</div>
-	</el-header>
+ 
     <el-main>
     <div class="search-main">
     <el-input placeholder="请输入内容" v-model="input">
@@ -34,7 +17,7 @@
 
 
   <!-- 图片轮播 -->
-  <div style="margin-top:12vw">
+  <div style="margin-top:8vw">
   <img alt="Vue"  src="../../assets/timg.jpg"  width="100%" height="900vw" style="border-radius: 10px;margin-top: 0.4vw;"/>
   </div>
  
@@ -162,14 +145,14 @@
 /*底部菜单部分 */
  .footer{
  
-	width: 100%;
+	width: 90%;
 	height: 15vw;
 	background-color: #fff;	
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
   margin-top: 8vw;
-  border:solid 3px rgb(102, 101, 101);
+  /* border:solid 3px rgb(102, 101, 101); */
    background-color: rgb(54, 54, 54);
 }
 .footer li{
@@ -204,24 +187,16 @@
   line-height: 6vw;
  }
 
-.el-header, .el-footer {
-    text-align: center;
-    line-height: 1vw;
-  }
+
 .el-main {
   text-align: center;
   line-height: 1vw;
   background-color: rgba(0,0,0,0.5); 
   }
-.search{
-  display: flex;
-  justify-content: flex-end;
-  align-content: center;
-  margin-top:0.4vw;
-  margin-right: 2vw;
-}
+
 .search-main{
-  margin-left: 67vw;
+  margin-left: 50vw;
+  padding-top: 2vw;
   width: 30%;
   align-content: center;
 }
@@ -334,25 +309,7 @@
       };
     },
     methods: {
-      cancel() {
-        this.$confirm('是否退出登录?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$removeSessionStorage('user');
-          this.$router.go(0);
-          this.$message({
-            type: 'success',
-            message: '已退出'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          });          
-        });
-      }
+     
       
     }
   }
