@@ -5,12 +5,20 @@
   <el-container>
   <el-header>	
 	<div class="search">
+ <div class="search">
     <p v-if="this.$getSessionStorage('user')==null">
-    <el-button type="success" plain>登录</el-button>
+ <el-button type="success" plain>登录</el-button>
   	<el-button type="info" plain>注册</el-button>
+
     </p>
-    <p v-else>{{this.$getSessionStorage('user').username}}</p>
+    <p v-else>
+      <el-link :underline="false" @click="cancel">
+        <i class="el-icon-user-solid"></i>
+      {{this.$getSessionStorage('user').username}}
+      </el-link>
+      </p>
 	 
+	</div>
 	</div>
 	</el-header>
     <el-main>
@@ -326,6 +334,25 @@
       };
     },
     methods: {
+      cancel() {
+        this.$confirm('是否退出登录?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$removeSessionStorage('user');
+          this.$router.go(0);
+          this.$message({
+            type: 'success',
+            message: '已退出'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });          
+        });
+      }
       
     }
   }

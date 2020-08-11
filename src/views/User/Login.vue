@@ -166,6 +166,7 @@ export default {
           this.$axios
             .post("user/login", this.$qs.stringify(this.loginForm))
             .then(res => {
+              this.$setSessionStorage('user',res.data.obj);
               // _this.console.log(res.data);
               if (res.data.status == 0) {
                 this.$message({
