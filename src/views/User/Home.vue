@@ -6,8 +6,13 @@
   <el-container>
   <el-header>	
 	<div class="search">
-	<el-button type="success" plain>登录</el-button>
+	
+    <p v-if="this.$getSessionStorage('user')==null">
+    <el-button type="success" plain>登录</el-button>
   	<el-button type="info" plain>注册</el-button>
+    </p>
+    <p v-else>{{this.$getSessionStorage('user').username}}</p>
+	 
 	</div>
 	</el-header>
     <el-main>
