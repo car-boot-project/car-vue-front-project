@@ -1,13 +1,11 @@
 <template>
 <div class="manageuser">
-<h2>
+  <div style="float:left;">
+    <router-link to="/managelist">返回管理中心</router-link>
+</div>
+<h1>
   管理用户<i class="fa fa-gear" aria-hidden="true"></i>
-</h2>
-<el-menu>
-  <el-menu-item>
-<router-link to="/managelist">返回管理中心</router-link>
-</el-menu-item>
-</el-menu>
+</h1>
 
   <el-table
     :data="tableData"
