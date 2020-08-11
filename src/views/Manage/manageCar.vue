@@ -15,7 +15,7 @@
 </el-menu-item>
 </el-menu>
   <el-table
-    :data="tableData"
+    :data="car"
     style="width: 100%"
     max-height="500"
     >
@@ -23,43 +23,43 @@
     <!-- 汽车基本信息 -->
     <el-table-column prop='carId' label='汽车编号' width="100">
       <template slot-scope="scope">
-        {{scope.row.carId}}
+        {{scope.row.carid}}
       </template>
     </el-table-column>
 
     <el-table-column prop="carName" label="汽车名称" width="160">
       <template slot-scope="scope">
-            {{scope.row.carName}}
+            {{scope.row.carname}}
       </template>
     </el-table-column>
 
     <el-table-column prop="carBrand" label="汽车品牌" width="160">
       <template slot-scope="scope">
-            {{scope.row.carBrand}}
+            {{scope.row.carbrand}}
       </template>
     </el-table-column>
     
     <el-table-column prop="carModel" label="汽车型号" width="160">
       <template slot-scope="scope">
-            {{scope.row.carModel}}
+            {{scope.row.carmodel}}
       </template>
     </el-table-column>
 
     <el-table-column prop="carPrice" label="汽车价格" width="170">
       <template slot-scope="scope">
-            {{scope.row.carPrice}}
+            {{scope.row.carprice}}
       </template>
     </el-table-column>
 
     <el-table-column prop='carStock' label='汽车库存' width="160">
       <template slot-scope="scope">
-        {{scope.row.carStock}}
+        {{scope.row.carstock}}
       </template>
     </el-table-column>
 
     <el-table-column prop="carNote" label="汽车简介" width="280">
       <template slot-scope="scope">
-            {{scope.row.carNote}}
+            {{scope.row.carnote}}
       </template>
     </el-table-column>
 
@@ -113,7 +113,7 @@
   </el-table>
 
   <!-- 编辑汽车信息 -->
-  <el-dialog title="编辑汽车信息" :visible.sync="editdailgVisible" width="50%" @click="editdaillogClose">
+  <!-- <el-dialog title="编辑汽车信息" :visible.sync="editdailgVisible" width="50%" @click="editdaillogClose">
             <el-form ref="editFormRef" :model="car"  label-width="80px">
                 <el-form-item label="汽车编号" prop="carId">
                     <el-input v-model="car.carId"></el-input>
@@ -144,10 +144,10 @@
     <el-button @click="editdailgVisible = false">取 消</el-button>
     <el-button type="primary" @click="editcar">保 存</el-button>
   </span>
-        </el-dialog>
+        </el-dialog> -->
 
   <!-- 添加汽车 -->
-  <el-dialog title="添加汽车"  :visible.sync="adddialogVisible" width="50%" @click="adddialogClose">
+  <!-- <el-dialog title="添加汽车"  :visible.sync="adddialogVisible" width="50%" @click="adddialogClose">
             <el-form ref="addFormRef" :model="car"  label-width="80px">
                 <el-form-item label="汽车名" prop="carName">
                     <el-input v-model="car.carName"></el-input>
@@ -175,7 +175,7 @@
     <el-button @click="adddialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="addcar">添 加</el-button>
   </span>
-        </el-dialog>
+        </el-dialog> -->
 
 
 </div>
@@ -184,9 +184,16 @@
 <script>
   export default {
     name: 'managecar',
-    created(){
-        },
-        
+    created(){},
+    mounted(){
+      const _this = this;
+       this.$axios
+            .get("admin/get_all_car_by_page?page="+this.page+"&offset="+this.offset)
+            .then(res => {
+              this.car = res.data.list;
+                console.log(res.data.list);
+            })
+    },    
     methods: {
       //删除行操作
       deleteRow(index, rows) {
@@ -258,64 +265,9 @@
     // },
     data() {
       return {
-        car:{
-          carNum: 1,
-          carName: '',
-          carBrand: '',
-          carStock: '',
-          carImg: '',
-          carPrice:'',
-          carModel:'',
-          carNote: '',
-          kindNum: 2
-        },
-        adddialogVisible:false,
-        editdailgVisible:false,
-        tableData: [{
-          carId: '10090212',
-          carName: '玛莎拉蒂 MC12',
-          carBrand: '玛莎拉蒂',
-          carStock:'10',
-          carModel: '运动型跑车',
-          carPrice: '5000000.00',
-          carNote: '这款基于GranTurismo跑车平台基础上开发的四座敞篷跑',
-        },
-        {
-          carId: '19873366',
-          carName: '奥迪A7新能源',
-          carBrand: '奥迪',
-          carStock:'9',
-          carModel: '奥迪 A7',
-          carPrice: '738000.00',
-          carNote: '外观方面，新车依然采用了四门轿跑的车身造型,内饰方面，新车配',
-        },
-        {
-          carId: '20200789',
-          carName: '奔驰 gl450',
-          carBrand: '奔驰',
-          carStock:'11',
-          carModel: '奔驰 gl',
-          carPrice: '500000.00',
-          carNote: '英雄志向，博闻多识。长轴距GLC SUV搭配MBUX智能人机',
-        },
-        {
-          carId: '20200809',
-          carName: '别克微蓝',
-          carBrand: '别克',
-          carStock:'30',
-          carModel: '纯电动汽车',
-          carPrice: '$1233',
-          carNote: '微蓝7基于通用汽车新能源车型平台正向研发，搭载eMotion',
-        },
-        {
-          carId: '28938483',
-          carName: '丰田 RAV4荣放',
-          carBrand: '丰田',
-          carStock:'0',
-          carModel: 'RAV4',
-          carPrice: '218700.00',
-          carNote: 'Rav4一直都是美国紧凑型SUV的销量担当，和CR-V、日产',
-                  }]
+        car:[],
+        page:1,
+        offset:20
       };
     },
     //  created(){
