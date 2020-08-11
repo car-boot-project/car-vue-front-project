@@ -11,6 +11,8 @@
 
   <el-table
     :data="tableData"
+    :header-cell-style="tableHeaderColor" 
+    :cell-style="tableCellStyle"
     style="width: 100%"
     max-height="500">
     
@@ -72,8 +74,6 @@
        
     </el-table-column> -->
 
-
-
   </el-table>
 </div>
 </template>
@@ -84,7 +84,21 @@
     methods: {
       deleteRow(index, rows) {
         rows.splice(index, 1);
-      }
+      },
+       
+       //修改表格表头背景色
+       tableHeaderColor({row, column, rowIndex, columnIndex}){
+         if(rowIndex === 0){
+           return 'background-color: lightblue;color: #fff;font-weight: 500;'
+         }
+       },
+       // 修改表格行的背景色
+       tableCellStyle({row,column,rowIndex,columnIndex}){
+         if(columnIndex === 0,1,2,3){
+           return 'background-color: #ecfcf0'
+           return 'cell-grey'
+         }
+       },
     },
     data() {
       return {
