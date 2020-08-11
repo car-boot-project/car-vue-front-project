@@ -4,30 +4,41 @@
         <div class="container">
             <el-card class="box-card" center>
                 <div class="container">
-                <el-row :gutter="20">
-  <el-col :span="12"><div class="pro-img"><img v-bind:src=" carimg" alt="2" width="100%" >
-                                </div></el-col>
-  <el-col :span="12"><div class="pro-text-outer list-pro-text">
-                                    <span>{{ carbrand}} </span>
-                                    <h4>{{ carname}}</h4>
-                                
 
-                                    
-                                    <p class="wk-price">￥{{ carprice}} </p>
-                                    <p>{{ carmodel}}</p>
-                                    <p>{{ carnote}}</p>
-                                    <p>{{ carstock}}</p>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <!-- .pro-text -->
+                        <div class="pro-text">
+                            <div class="col-xs-12 col-sm-5 col-md-5">
+                                <!-- .pro-img -->
+                                <div class="pro-img"><img v-bind:src=" imgSrc" alt="2" width="300px" height="300px">
+                                </div>
+                                <!-- /.pro-img -->
+                            </div>
+                            <div class="col-xs-12 col-sm-7 col-md-7">
+                                <div class="pro-text-outer list-pro-text">
+                                    <span>{{ author}} 著</span>
+                                    <h4>{{ book}}</h4>
+                                    <div class="star2">
+                                        <div class="block">
+                                            <!--<span class="demonstration">默认不区分颜色</span>-->
+                                            <el-rate v-model="recommendStar"  disabled></el-rate>
+                                        </div>
+                                    </div>
+                                    <p class="wk-price">￥{{ price}} <span>￥{{lastPrice}}</span></p>
+                                    <p>{{ publisher}}</p>
                                     <div id="buy">
-                                        <el-button plain>收藏</el-button>
+                                        <el-button plain>加入购物车</el-button>
 
                                         <router-link to="Shopping_chart"><el-button type="primary" plain>立即购买</el-button></router-link>
                                     </div>
 
 
 
-                                </div></el-col>
-                </el-row>
-                
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.pro-text -->
+                    </div>
 
                 </div>
             </el-card>
@@ -42,22 +53,13 @@
         name: "CarDetail",
         data:function () {
             return{
-
-                //   carid: 0,
-        carname: "奔驰A4",
-        carbrand: "奔驰",
-        carstock: 0,
-        carimg: require('../../assets/timg.jpg'),
-        carprice: 1250000,
-        carmodel: "A4",
-        carnote: "这款车"
-                // imgSrc: require('../../assets/Login.png'),
-                // author:"奔驰",
-                // book:"奔驰 A4",
-                // recommendStar:"A4",
-                // price:99.9,
-                // carnote:"这款车",
-                // carstock:15,
+                imgSrc: require('../../assets/Login.png'),
+                author:"作者",
+                book:"猪饲料的使用方法",
+                recommendStar:5,
+                price:99.9,
+                lastPrice:150,
+                publisher:"人文出版社",
 
 
 

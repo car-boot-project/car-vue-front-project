@@ -122,8 +122,8 @@ export default {
       if (value === "") {
         callback(new Error("请输入手机号码"));
       } 
-      else  if(!(/^1[3456789]\d{9}$/.test(value))) {
-            callback(new Error('请输入手机号码'));
+      else if (!Number.isInteger(value)) {
+            callback(new Error('请输入数字'));
           }
       else {
         callback();

@@ -1,33 +1,33 @@
 <template>
 <div>
-  <el-container>
-  <el-aside width= 20vw ><p>买立达</p></el-aside>
+  <el-container style="height:7.4vw;margin-top:8vw;background-color: rgba(0,0,0,0.5);">
+  <el-aside width= 20vw>买立达</el-aside>
   <el-container>
   <el-header>	
 	<div class="search">
     <p v-if="this.$getSessionStorage('user')==null">
- <el-button type="success" plain>登录</el-button>
+    <el-button type="success" plain>登录</el-button>
   	<el-button type="info" plain>注册</el-button>
-
     </p>
     <p v-else>{{this.$getSessionStorage('user').username}}</p>
 	 
 	</div>
 	</el-header>
-  <el-main>
+    <el-main>
     <div class="search-main">
     <el-input placeholder="请输入内容" v-model="input">
     <i slot="prefix" class="el-input__icon el-icon-search"></i>
    </el-input>
-    </div>
+  </div>
   </el-main>
+
   </el-container>
 </el-container>
 
 
   <!-- 图片轮播 -->
-  <div>
-  <img alt="Vue"  src="../../assets/timg.jpg"  width="100%" height="900vw" style="border-radius:10px;margin-top: 0.4vw;"/>
+  <div style="margin-top:12vw">
+  <img alt="Vue"  src="../../assets/timg.jpg"  width="100%" height="900vw" style="border-radius: 10px;margin-top: 0.4vw;"/>
   </div>
  
 <div>
@@ -132,54 +132,8 @@
 				</li>
 			</ul>
 </div>
-
 </template>
 <style>
-/* 搜索部分 */
-.el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
-  
-  .el-aside {
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-  }
-  
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
-.search{
-  display: flex;
-  justify-content: flex-end;
-  align-content: center;
-  margin-top:1vw;
-  margin-right: 2vw;
-}
-.search-main{
-  margin-left: 45vw;
-  width: 40%;
-  display: flex;
-  justify-content: flex-end;
-  align-content: center;
-}
-  .el-aside p{
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  font-size:6vw;
-  font-style:italic;
-  color: #ffffff;
-  text-align:unset;
-	/* line-height: 5vw; */
-  font-weight: 400;
-  text-shadow:2px 2px #00ffff;
-  margin-left: 2vw;
- }
 /* 商品推荐 */
 /****************** 推荐商家部分 ******************/
 .recommend{
@@ -219,6 +173,7 @@
 	color: #999;
 	user-select: none;
 	margin-top: 2vw;
+
 }
 .footer li p{
 	font-size: 2.8vw;
@@ -226,6 +181,43 @@
 .footer li i{
 	font-size: 5vw;
 }
+/* 搜索部分 */
+.el-aside {
+  
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size:6vw;
+  font-style:italic;
+  color: #ffffff;
+  text-align:unset;
+	line-height: 5vw;
+  font-weight: 400;
+  text-shadow:2px 2px #00ffff;
+  margin-left: 2vw;
+  line-height: 6vw;
+ }
+
+.el-header, .el-footer {
+    text-align: center;
+    line-height: 1vw;
+  }
+.el-main {
+  text-align: center;
+  line-height: 1vw;
+  background-color: rgba(0,0,0,0.5); 
+  }
+.search{
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  margin-top:0.4vw;
+  margin-right: 2vw;
+}
+.search-main{
+  margin-left: 67vw;
+  width: 30%;
+  align-content: center;
+}
+
 
   /* 商品推荐部分 */
 	.cartype{
@@ -299,10 +291,6 @@
     margin-bottom: 0.5vw;
     border-radius: 4px;
   }
-  .aside{
-    width: 7vw;
-    height: 4vw;
-  }
 
  .el-row {
    margin-top: 1vw;
@@ -329,20 +317,16 @@
   }
 
 </style>
+
 <script>
   export default {
     data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1',
         input: ''
-
       };
     },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      }
+      
     }
   }
 </script>
