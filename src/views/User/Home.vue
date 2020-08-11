@@ -145,14 +145,14 @@
 /*底部菜单部分 */
  .footer{
  
-	width: 90%;
+	width: 100%;
 	height: 15vw;
 	background-color: #fff;	
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
   margin-top: 8vw;
-  /* border:solid 3px rgb(102, 101, 101); */
+  border:solid 3px rgb(102, 101, 101);
    background-color: rgb(54, 54, 54);
 }
 .footer li{
