@@ -1,10 +1,16 @@
 <template>
 <div class="manageuser">
-  <div style="float:left;">
-    <router-link to="/managelist">返回管理中心</router-link>
+  <div id="round" style="float:left">
+  <el-menu>
+    <el-menu-item>
+      <el-link @click="tomanageList">
+        <i class="el-icon-back"></i>返回管理中心
+        </el-link>
+        </el-menu-item>
+  </el-menu>
 </div>
 <h1>
-  管理用户<i class="fa fa-gear" aria-hidden="true"></i>
+  用户管理<i class="fa fa-gear" aria-hidden="true"></i>
 </h1>
 
   <el-table
@@ -77,9 +83,21 @@
 </template>
 
 <script>
+export default {
+  name: "manageuser"
+};
+</script>
+
+<script>
   export default {
-    name: 'manageuser',
+
     methods: {
+
+      //返回管理中心
+        tomanageList() {
+        this.$router.push('/managelist');
+      },
+
       deleteRow(index, rows) {
         rows.splice(index, 1);
       },

@@ -1,8 +1,14 @@
 <template>
 <div class="managecar">
-  <div id="round" style="float:left;">
-    <router-link to="/managelist">返回管理中心</router-link>
-  </div>
+<div id="round" style="float:left">
+  <el-menu>
+    <el-menu-item  @click="tomanageList">
+      <el-link>
+        <i class="el-icon-back"></i>返回管理中心
+        </el-link>
+        </el-menu-item>
+  </el-menu>
+</div>
 <h1>
   汽车管理<i class="fa fa-car" aria-hidden="true"></i>
 </h1>
@@ -16,6 +22,8 @@
 </el-menu>
   <el-table
     :data="tableData"
+    :header-cell-style="tableHeaderColor" 
+    :cell-style="tableCellStyle"
     style="width: 100%"
     max-height="500"
     >
@@ -181,13 +189,18 @@
 </div>
 </template>
 
+
 <script>
   export default {
-    name: 'managecar',
+  name: "managecar",
     created(){
         },
         
     methods: {
+      //返回管理中心
+        tomanageList() {
+        this.$router.push('/managelist');
+      },
       //删除行操作
       deleteRow(index, rows) {
         rows.splice(index, 1);
@@ -201,16 +214,21 @@
       ShowEditCar(){
         this.editdailgVisible =true
       },
-      // deletecar(carid){
-      //   const _this = this
-      //   axios.get('http://localhost:8082/admin/deletecar?carId='+carId).then(function(resp){
-      //   //console.log(resp)
-      //   if(resp.data !== 1)
-      //      this.$message.error("删除图书失败")
-      //      _this.$message.success("删除图书成功")
-      //      _this.getcar()
-      //      })
-      // },
+
+//修改表格表头背景色
+       tableHeaderColor({row, column, rowIndex, columnIndex}){
+         if(rowIndex === 0){
+           return 'background-color: #a1afc9;color: #fff;font-weight: 500;'
+         }
+       },
+       // 修改表格行的背景色
+       tableCellStyle({row,column,rowIndex,columnIndex}){
+         if(columnIndex === 0,1,2,3){
+           return 'background-color: #f3f9f1'
+           return 'cell-grey'
+         }
+       },
+
       addcar(){
 
       },
@@ -256,6 +274,7 @@
     //       console.log(e);
     //     });
     // },
+
     data() {
       return {
         car:{
@@ -318,27 +337,22 @@
                   }]
       };
     },
-    //  created(){
-    //      },
-        
-    // methods: {
-    //     handleChange(value) {
-    //       console.log(value);
-    //     }
-      
-    //  },
+    
+
   }
 </script>
 
-<style scoped>
+<style>
 
 .el-table-column{
   margin-bottom: 20px;
 
 }
-.el-menu{
-    border-bottom: 60px;
-}
+/* el-menu {
+    border-right: solid 2px #0c0c0c;
+    padding-left: 0;
+    background-color: rgb(240, 30, 30);
+} */
 
 
 </style>
