@@ -1,7 +1,15 @@
 <template>
   <div id="cardetail">
     <!-- <Header></Header> -->
+        <h3>
+      <i class="fa fa-info-circle" aria-hidden="true"></i>商品详情
+    </h3>
+    <el-divider></el-divider>
+    
     <div class="container">
+        <el-page-header @back="goBack" content></el-page-header>
+    
+
       <el-card class="box-card" >
         <div class="container">
             <el-row :gutter="80">
@@ -97,6 +105,11 @@ export default {
       console.log(res.data);
       _this.car = res.data;
     });
+  },
+  methods:{
+         goBack() {
+      this.$router.go(-1);
+    }
   }
 };
 </script>
@@ -105,7 +118,8 @@ export default {
 .box-card {
   width: 80%;
   margin: 0 auto;
-  margin-top: 100px;
+  /* margin-top: 100px; */
+  /* background-color: rgb(255, 236, 250); */
 
 }
 .el-row  {
@@ -130,7 +144,8 @@ export default {
 text-align: left;
   }
   .price{
-      background-color:#E7E7E7;
+      text-align: left;
+      /* background-color:#E7E7E7; */
   }
 
 </style>

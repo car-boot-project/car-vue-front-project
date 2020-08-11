@@ -64,7 +64,7 @@
 <style scoped>
 .login {
   background-color: rgb(187, 159, 214);
-  height: 600px;
+  height: 45vw;
 }
 /* 布局 */
 .el-row {

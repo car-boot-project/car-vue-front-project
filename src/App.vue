@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-header>
+    <el-header style="padding: 0 0">
       <div class="search">
         <p v-if="this.$getSessionStorage('user')==null">
           <el-link :underline="false" @click="toLogin" type="danger">
@@ -55,11 +55,15 @@
   color: #42b983;
 } */
 .el-header,
-.el-footer {
+.el-container {
   /* text-align: center; */
   /* line-height: 1vw; */
   position: absolute;
   top: 1vw;
+  width: 100%;
+  right: 3vw;
+
+  
 }
 .search {
   display: flex;
