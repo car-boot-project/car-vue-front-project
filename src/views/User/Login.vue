@@ -168,6 +168,8 @@ export default {
             .then(res => {
               // _this.console.log(res.data);
               if (res.data.status == 0) {
+                this.$setSessionStorage("user",res.data.obj);
+                // sessionStorage.setItem("user",res.data.obj);
                 this.$message({
                   message: "登陆成功！",
                   type: "success"
