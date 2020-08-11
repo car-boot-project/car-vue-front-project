@@ -166,11 +166,13 @@ export default {
           this.$axios
             .post("user/login", this.$qs.stringify(this.loginForm))
             .then(res => {
+              this.$setSessionStorage('user',res.data.obj);
               // _this.console.log(res.data);
               if (res.data.status == 0) {
                 this.$message({
                   message: "登陆成功！",
-                  type: "success"
+                  type: "success",
+                  
                 });
                  _this.$router.push({name:'Home'})
               }

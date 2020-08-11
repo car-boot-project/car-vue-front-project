@@ -1,7 +1,24 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/home">Home</router-link> |
+    <el-header>
+      <div class="search">
+        <p v-if="this.$getSessionStorage('user')==null">
+          <el-link :underline="false" @click="toLogin" type="danger">
+            <i class="el-icon-user"></i>
+            登录
+          </el-link>
+
+         
+        </p>
+        <p v-else>
+          <el-link :underline="false" @click="cancel">
+            <i class="el-icon-user-solid"></i>
+            {{this.$getSessionStorage('user').username}}
+          </el-link>
+        </p>
+      </div>
+    </el-header>
+    <!-- <router-link to="/home">Home</router-link> |
         <router-link to="/about">About</router-link>
       <router-link to="/login">Login</router-link>
        <router-link to="/register">Register</router-link>
@@ -10,10 +27,9 @@
       <router-link to="/manageuser">manageUser</router-link>
       <router-link to="/managelogin">manageLogin</router-link>
       <router-link to="/managecar">manageCar</router-link>
-      <router-link to="/managelist">manageList</router-link>
+    <router-link to="/managelist">manageList</router-link>-->
 
-    </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -26,7 +42,7 @@
   color: #2c3e50;
 }
 
-#nav {
+/* #nav {
   padding: 30px;
 }
 
@@ -37,5 +53,49 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+} */
+.el-header,
+.el-footer {
+  /* text-align: center; */
+  /* line-height: 1vw; */
+  position: absolute;
+  top: 1vw;
+}
+.search {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  /* margin-top: 0.4vw; */
+  margin-right: 2vw;
 }
 </style>
+<script>
+export default {
+  methods: {
+    cancel() {
+      this.$confirm("是否退出登录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$removeSessionStorage("user");
+          this.$router.go(0);
+          this.$message({
+            type: "success",
+            message: "已退出"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
+    },
+    toLogin() {
+      this.$router.push("/login");
+    }
+  }
+};
+</script>
