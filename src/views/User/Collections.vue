@@ -10,7 +10,7 @@
     <el-table :data="car" style="width: 80%">
       <el-table-column label width="200px">
         <template slot-scope="scope">
-          <img :src="scope.row.carimg" alt />
+          <img :src="scope.row.carimg" alt @click="toDetail(scope.row)" />
         </template>
 
         <!-- <img :src='data:image/png;base64,'+carimg alt=""> -->
@@ -132,17 +132,25 @@ export default {
         .post(
           "collects/get_collects_list_by_userid",
           this.$qs.stringify({
-            userid: _this.$getSessionStorage("user").userid
+            userid: this.$getSessionStorage("user").userid
           })
         )
         .then(res => {
-          console.log(res);
-          console.log(_this.$getSessionStorage("user").userid);
+          // console.log(res);
+          // console.log(_this.$getSessionStorage("user").userid);
           this.car = res.data.obj;
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    toDetail(row) {
+      this.$router.push({
+        name: "CarDetail",
+        params: {
+          carid: row.carid
+        }
+      });
     },
     goBack() {
       console.log("go back");
