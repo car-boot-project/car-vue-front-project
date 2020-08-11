@@ -21,7 +21,7 @@
       <el-table-column label="价格" prop="carprice"></el-table-column>
       <el-table-column label="车型" prop="carmodel"></el-table-column>
       <el-table-column label="描述" prop="carnote" width="300px"></el-table-column>
-      <el-table-column label="库存" prop="carstock" width="80px" ></el-table-column>
+      <el-table-column label="库存" prop="carstock" width="80px"></el-table-column>
       <el-table-column align="right">
         <!-- <template slot="header" slot-scope>
             <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
@@ -75,24 +75,49 @@ export default {
       //   carnote: ""
       // }
 
-      userid: 2020010003,
+      // userid: 2020010004,
       search: ""
     };
   },
   methods: {
+    // CancelCollect(row) {
+    //   const _this = this;
+    //   this.$axios
+    //     .post("collects/remove?userid=" + this.userid + "&carid=" + row.carid)
+    //     .then(res => {
+    //       console.log(res);
+    //       if (res.data.status == 0) {
+    //             _this.getData();
+    //         this.$message({
+    //           message: "取消收藏成功！",
+    //           type: "success"
+    //         });
+
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // },
+
     CancelCollect(row) {
       const _this = this;
       this.$axios
-        .post("collects/remove?userid=" + this.userid + "&carid=" + row.carid)
+        .post(
+          "collects/remove",
+          this.$qs.stringify({
+            userid: this.$getSessionStorage("user").userid,
+            carid: row.carid
+          })
+        )
         .then(res => {
           console.log(res);
           if (res.data.status == 0) {
-                _this.getData();
+            _this.getData();
             this.$message({
               message: "取消收藏成功！",
               type: "success"
             });
-            
           }
         })
         .catch(error => {
@@ -104,35 +129,43 @@ export default {
       const _this = this;
 
       this.$axios
-        .post("collects/get_collects_list_by_userid?userid=" + this.userid)
+        .post(
+          "collects/get_collects_list_by_userid",
+          this.$qs.stringify({
+            userid: _this.$getSessionStorage("user").userid
+          })
+        )
         .then(res => {
           console.log(res);
-          console.log(this.userid);
+          console.log(_this.$getSessionStorage("user").userid);
           this.car = res.data.obj;
         })
         .catch(error => {
           console.log(error);
         });
     },
-     goBack() {
-        console.log('go back');
-      }
+    goBack() {
+      console.log("go back");
+    }
   },
   created() {
     const _this = this;
 
-      this.$axios
-        .post("collects/get_collects_list_by_userid?userid=" + this.userid)
-        .then(res => {
-          console.log(res);
-          console.log(this.userid);
-          this.car = res.data.obj;
+    this.$axios
+      .post(
+        "collects/get_collects_list_by_userid",
+        this.$qs.stringify({
+          userid: _this.$getSessionStorage("user").userid
         })
-        .catch(error => {
-          console.log(error);
-        });
-    }
-  
-  
+      )
+      .then(res => {
+        console.log(res);
+        // console.log(_this.$getSessionStorage("user").userid);
+        this.car = res.data.obj;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 };
 </script>
