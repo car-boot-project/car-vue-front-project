@@ -1,12 +1,10 @@
 <template>
 <div>
-
   <el-container style="height:7.4vw;margin-top:8vw;background-color: rgba(0,0,0,0.5);">
   <el-aside width= 20vw>买立达</el-aside>
   <el-container>
   <el-header>	
 	<div class="search">
-	
     <p v-if="this.$getSessionStorage('user')==null">
     <el-button type="success" plain>登录</el-button>
   	<el-button type="info" plain>注册</el-button>
@@ -134,7 +132,6 @@
 				</li>
 			</ul>
 </div>
-
 </template>
 <style>
 /* 商品推荐 */
@@ -320,6 +317,7 @@
   }
 
 </style>
+
 <script>
   export default {
     data() {
