@@ -1,6 +1,6 @@
 <template>
-<div>
-  <el-container style="width:100%;height:8vw;background-color: rgba(0,0,0,0.5);">
+<div class="home">
+  <el-container style="width:100%;height:8vw;background-color: rgba(0,0,0,0.5); border-radius: 10px;">
   <el-aside width= 20vw>买立达</el-aside>
   <el-container>
  
@@ -15,32 +15,37 @@
   </el-container>
 </el-container>
 
-
   <!-- 图片轮播 -->
-  <div style="margin-top:8vw">
-  <img alt="Vue"  src="../../assets/timg.jpg"  width="100%" height="900vw" style="border-radius: 10px;margin-top: 0.4vw;"/>
+  <div style="margin-top:9vw">
+    <el-carousel indicator-position="outside" height="50vw" >
+    <el-carousel-item v-for="(item,index) in item" :key="index">
+	<div class="item-img">
+      <img :src="item"/>
+	</div>
+    </el-carousel-item>
+  </el-carousel>
   </div>
  
-<div>
+<!-- <div>
 <el-row :gutter="20">
-  <el-col :span="6">
+  <el-col :span="8">
     <div class="grid-content bg-purple">
      <el-container>
       <div class="aside">
-       <img class="img" alt="Vue logo" src="../../assets/lanbo.png"/>
+       <img class="img" src="../../assets/lanbo.png"/>
       </div>
        <div class="main">兰博基尼</div>
     </el-container>
     </div>
   </el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+  <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
+  <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
+  
 </el-row>
-</div>
+</div> -->
 
 <!-- 品牌显示-->
-<div>
+<!-- <div>
 <el-row :gutter="20">
   <el-col :span="6">
     <div class="grid-content bg-purple">
@@ -56,55 +61,58 @@
   <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
   <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
 </el-row>
-</div>
+</div> -->
 
 <!-- 商品推荐 -->
 <div class="recommend">
-				<div class="recommend-line"></div>
-				<p>推荐商品</p>
-				<div class="recommend-line"></div>
+	<div class="recommend-line"></div>
+	<p>推荐商品</p>
+	<div class="recommend-line"></div>
 	</div>
 
 <ul class="cartype">
-	<li onclick="location.href='businessList.html'">
-	<img src="../../assets/timg.jpg" />
+	<li>
+	<img :src="carImg" />
 	<div class="cartype-p" >
-		<p>奥迪 Q7</p>
-		<h3>&#165;1000000.00</h3>
+		<p>{{carName}}</p>
+		<h3>&#165;{{carPrice}}</h3>
 	</div>
-	<input type="button" value="了解更多" class="button-b">
+	<input type="button" value="了解更多" class="button-b" @click="toCardetail" >
 	</li>
-		<li onclick="location.href='businessList.html'">
-	<img src="../../assets/timg.jpg" />
+	<li>
+	<img :src="carImg" />
 	<div class="cartype-p" >
-		<p>奥迪 Q7</p>
-		<h3>&#165;1000000.00</h3>
+		<p>{{carName}}</p>
+		<h3>&#165;{{carPrice}}</h3>
 	</div>
-	<input type="button" value="了解更多" class="button-b">
+	<input type="button" value="了解更多" class="button-b" @click="toCardetail" >
 	</li>
-	<li onclick="location.href='businessList.html'">
-	<img src="../../assets/timg.jpg" />
+	
+	<li>
+	<img :src="carImg" />
 	<div class="cartype-p" >
-		<p>奥迪 Q7</p>
-		<h3>&#165;1000000.00</h3>
+		<p>{{carName}}</p>
+		<h3>&#165;{{carPrice}}</h3>
 	</div>
-	<input type="button" value="了解更多" class="button-b">
+	<input type="button" value="了解更多" class="button-b" @click="toCardetail" >
 	</li>
-	<li onclick="location.href='businessList.html'">
-	<img src="../../assets/timg.jpg" />
+	
+	<li>
+	<img :src="carImg" />
 	<div class="cartype-p" >
-		<p>奥迪 Q7</p>
-		<h3>&#165;1000000.00</h3>
+		<p>{{carName}}</p>
+		<h3>&#165;{{carPrice}}</h3>
 	</div>
-	<input type="button" value="了解更多" class="button-b">
+	<input type="button" value="了解更多" class="button-b" @click="toCardetail" >
 	</li>
-		<li onclick="location.href='businessList.html'">
-	<img src="../../assets/timg.jpg" />
+
+	<li>
+	<img :src="carImg" />
 	<div class="cartype-p" >
-		<p>奥迪 Q7</p>
-		<h3>&#165;1000000.00</h3>
+		<p>{{carName}}</p>
+		<h3>&#165;{{carPrice}}</h3>
 	</div>
-	<input type="button" value="了解更多" class="button-b">
+	<input type="button" value="了解更多" class="button-b" @click="toCardetail" >
 	</li>
 </ul>
 
@@ -124,7 +132,52 @@
 			</ul>
 </div>
 </template>
+
+<script>
+export default {
+        name: "Home",
+        data:function () {
+            return{
+                carImg: require('../../assets/timg.jpg'),
+                carName:"奔驰 gl450",
+            	carPrice:"100000.00",
+				input: '',
+				item:[require('../../assets/timg01.jpg'),require('../../assets/timg.jpg'),require('../../assets/timg01.jpg'),require('../../assets/timg.jpg')]
+            }},
+    methods: {
+    toCardetail(){
+    this.$router.push("/cardetail");
+	},
+    }
+  }
+</script>
 <style>
+/* 走马灯 */
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 18px;
+    opacity: 0.75;
+    line-height: 300px;
+    margin: 0;
+  }
+  
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
+
+  .item-img img{
+	  width: 100%;
+	  height: 50vw;
+	  border-radius: 10px;
+	  border-style: dashed;
+	  border: #00ffff;
+  }
+
+
 /* 商品推荐 */
 /****************** 推荐商家部分 ******************/
 .recommend{
@@ -266,51 +319,35 @@
   text-shadow: 0px 0px 5px rgb(109, 104, 104);
   margin-bottom: 2vw;
 }
+.el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    text-align: center;
+  }
 
+  .grid-content {
+    border-radius: 4px;
+    min-height:5vw;
+  }
+.main{
+	margin-left: 3vw;
+	font-size: 2vw;
+	color: #00ffff;
+	font-weight: bolder;
+	margin-top: 1vw;
+}
   .img{
     width: 4.5vw;
     height:4.5vw;
     margin-top: 0.3vw;
     margin-bottom: 0.5vw;
+	margin-left: 3vw;
     border-radius: 4px;
   }
 
  .el-row {
    margin-top: 1vw;
-    /* &:last-child {
-      margin-bottom: 0;
-    } */
   }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-    text-align: center;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height:5vw;
-  }
-
+  
 </style>
-
-<script>
-  export default {
-    data() {
-      return {
-        input: ''
-      };
-    },
-    methods: {
-     
-      
-    }
-  }
-</script>
