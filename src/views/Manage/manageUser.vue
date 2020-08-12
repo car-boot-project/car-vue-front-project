@@ -1,6 +1,6 @@
 <template>
 <div class="manageuser">
-  <div id="round" style="float:left">
+  <!-- <div id="round" style="float:left">
   <el-menu>
     <el-menu-item>
       <el-link @click="tomanageList">
@@ -8,10 +8,13 @@
         </el-link>
         </el-menu-item>
   </el-menu>
-</div>
+</div> -->
 <h1>
   用户管理<i class="fa fa-gear" aria-hidden="true"></i>
 </h1>
+<!-- 返回管理中心 -->
+  <el-divider></el-divider>
+  <el-page-header @back="goBack" content></el-page-header>
 
   <el-table
     :data="tableData"
@@ -111,9 +114,12 @@
     methods: {
 
       //返回管理中心
-        tomanageList() {
-        this.$router.push('/managelist');
-      },
+      //   tomanageList() {
+      //   this.$router.push('/managelist');
+      // },
+      goBack() {
+      this.$router.go(-1);
+    },
 
       getData(page,offset){
        this.$axios

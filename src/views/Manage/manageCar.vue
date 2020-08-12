@@ -1,18 +1,13 @@
 <template>
 <div class="managecar">
-<div id="round" style="float:left">
-  <el-menu>
-    <el-menu-item  @click="tomanageList">
-      <el-link>
-        <i class="el-icon-back"></i>返回管理中心
-        </el-link>
-        </el-menu-item>
-  </el-menu>
-</div>
 <h1>
   汽车管理<i class="fa fa-car" aria-hidden="true"></i>
 </h1>
 
+
+<el-divider></el-divider>
+<!-- 添加汽车 -->
+<div id="round" style="float:right">
 <el-menu>
 <el-menu-item>
   <el-col :span="4">
@@ -20,6 +15,10 @@
   </el-col>
 </el-menu-item>
 </el-menu>
+</div>
+<!-- 返回管理中心 -->
+  <el-page-header @back="goBack" content></el-page-header>
+
   <el-table
     :data="tableData"
     :header-cell-style="tableHeaderColor" 
@@ -215,9 +214,10 @@
     },
     methods: {
       //返回管理中心
-        tomanageList() {
-        this.$router.push('/managelist');
-      },
+      goBack() {
+      this.$router.go(-1);
+    },
+
       //分页
        handleSizeChange(val) {
         this.offset = val;
