@@ -176,7 +176,24 @@
                     <el-input v-model="car.carstock"></el-input>
                 </el-form-item>
                 <el-form-item label="图片链接" prop="carImg">
-                    <el-input v-model="car.carimg"></el-input>
+
+                    <!-- <el-upload
+                    class="avatar-uploader"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload> -->
+                    
+                    <el-input type="file" v-model="car.carimg" class="uploadphoto"
+                     @change="uploadphoto($event)"
+                     ref="inputer"
+                     multiple accept="/assets/jpeg,/assets/gif,/assets/jpg,/assets/png">
+                    </el-input>
+
+                    
                 </el-form-item>
                 <el-form-item label="价格" prop="carPrice">
                     <el-input v-model="car.carprice"></el-input>
@@ -200,6 +217,8 @@
 
 
 <script>
+//import { config } from 'vue/types/umd';
+
   export default {
  name: "managecar",
      mounted(){
@@ -213,6 +232,72 @@
             })
     },
     methods: {
+
+        //图片上传
+        uploadphoto(e){
+          var file = e.target.files[0];
+          var filesize = file.size;
+          var filename = file.name;
+          if(filesize > 2101440){
+            //图片大于2MB
+          }
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = function(e){
+            //读取图片base64数据编码，然后将编码传给后端
+            var imgcode = e.target.result;
+            console.log(imgcode);
+          }
+        },
+
+//原来el-upload标签下的上传图片
+      // handleAvatarSuccess(res, file) {
+      //   this.imageUrl = URL.createObjectURL(file.raw);
+      // },
+      // beforeAvatarUpload(file) {
+      //   const isJPG = file.type === 'image/jpeg';
+      //   const isLt2M = file.size / 1024 / 1024 < 2;
+
+      //   if (!isJPG) {
+      //     this.$message.error('上传头像图片只能是 JPG 格式!');
+      //   }
+      //   if (!isLt2M) {
+      //     this.$message.error('上传头像图片大小不能超过 2MB!');
+      //   }
+      //   return isJPG && isLt2M;
+      // },
+
+      //点击上传图片，上传成功返回图片路径
+      // uploadFiles(){
+      //   var That=this;
+      //   let file = this.$refs.upload.$refs['upload-inner'].$refs.input;//获取文件数据
+      //   let fileList= file.files;
+      //   var imgFile;
+      //   let reader = new FileReader();
+      //   reader.readAsDataURL(fileList[0]);
+      //   reader.onload=function(e){
+      //     imgFile=e.target.result;
+      //     let obj={
+      //       id: "loginLogo",
+      //       configGroup:"logo",
+      //       configItem: "loginLogo",
+      //       itemValue: imgFile
+      //     }
+      //     return BaseApi.uploadFiles(obj).then((res)=>{
+      //       if(res.status=='SUCCESS'){
+      //         AlertBox('图片上传成功！','success',true).then(()=>{
+      //           return That.getSysLogo();
+      //         }
+      //         );
+      //       }
+      //       else{
+      //         Alert('图片上传失败！',res);
+      //         return ''
+      //       }
+      //     })
+      //   }
+      // },
+
       //返回管理中心
       goBack() {
       this.$router.go(-1);
@@ -320,7 +405,8 @@
         offset:5,
         total:10,
         editdailgVisible:false,
-        adddialogVisible:false
+        adddialogVisible:false,
+        imageUrl: ''
       };
     },
     
@@ -329,6 +415,29 @@
 </script>
 
 <style>
+/* .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  } */
 
 .el-table-column{
   margin-bottom: 20px;
