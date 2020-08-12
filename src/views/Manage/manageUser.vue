@@ -65,7 +65,7 @@
 
      <el-table-column label="用户状态" prop="blacklist">
        <template slot-scope="scope" >
-           <el-switch  v-model="scope.row.blacklist"  :active-value="1" :inactive-value="0" @change="userStateChange(scope.row)">
+           <el-switch  v-model="scope.row.deltag"  :active-value="0" :inactive-value="1" @change="userStateChange(scope.row.userid,scope.row.deltag)">
            </el-switch> 封禁
        </template>
     </el-table-column>
@@ -106,6 +106,7 @@
               this.total = res.data.total;
                 // console.log(res.data);
             })
+            //  console.log("测试："+JSON.parse(sessionStorage.getItem("admin")).username);
     },
     methods: {
 
@@ -121,7 +122,7 @@
               console.log(res.data);
               this.tableData = res.data.list;
               this.total = res.data.total;
-      
+             
             })
       },
       deleteRow(index, rows) {
@@ -148,6 +149,29 @@
       handleCurrentChange(val) {
         this.page = val;
         this.getData(this.page,this.offset)
+      },
+      userStateChange(userid,deltag){
+        if(deltag === 0){
+          this.$axios
+            .post("admin/lock?userid="+userid)
+            .then(res => {
+            //  console.log(res.data);
+            })
+        }
+        else {
+           this.$axios
+            .post("admin/unlock?userid="+userid)
+            .then(res => {
+            //  console.log(res.data);
+            })
+        }
+        // if(val === 1){
+        //    this.$axios
+        //     .post("admin/lock?userid="+val)
+        //     .then(res => {
+             
+        //     })
+        // }
       }
     },
     data() {
