@@ -2,7 +2,7 @@
   <div id="app">
     <el-header style="padding: 0 0">
       <div class="search">
-        <p v-if="this.$getSessionStorage('user')==null">
+        <p v-if="this.$getSessionStorage('user')==null&&this.$getSessionStorage('admin')==null">
           <el-link :underline="false" @click="toLogin" type="danger">
             <i class="el-icon-user"></i>
             登录
@@ -10,10 +10,16 @@
 
          
         </p>
-        <p v-else>
+        <p v-else-if="this.$getSessionStorage('user')!=null">
           <el-link :underline="false" @click="cancel">
             <i class="el-icon-user-solid"></i>
             {{this.$getSessionStorage('user').username}}
+          </el-link>
+        </p>
+        <p v-else-if="this.$getSessionStorage('admin')!=null">
+          <el-link :underline="false" @click="cancel">
+            <i class="el-icon-user-solid"></i>
+            {{this.$getSessionStorage('admin').username}}
           </el-link>
         </p>
       </div>
