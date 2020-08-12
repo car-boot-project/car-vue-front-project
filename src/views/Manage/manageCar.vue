@@ -177,28 +177,11 @@
                     <el-input v-model="carForm.carstock"></el-input>
                 </el-form-item>
                 <el-form-item label="图片链接" prop="carImg">
-<<<<<<< HEAD
-
-                    <!-- <el-upload
-                    class="avatar-uploader"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload> -->
-                    
                     <el-input type="file" v-model="car.carimg" class="uploadphoto"
                      @change="uploadphoto($event)"
                      ref="inputer"
                      multiple accept="/assets/jpeg,/assets/gif,/assets/jpg,/assets/png">
                     </el-input>
-
-                    
-=======
-                    <el-input v-model="carForm.carimg"></el-input>
->>>>>>> 15a1aa5492a4379bde5035a37682709cb598a441
                 </el-form-item>
                 <el-form-item label="价格" prop="carPrice">
                     <el-input v-model="carForm.carprice"></el-input>
@@ -222,8 +205,6 @@
 
 
 <script>
-//import { config } from 'vue/types/umd';
-
   export default {
  name: "managecar",
      mounted(){
@@ -239,7 +220,7 @@
     },
     methods: {
 
-        //图片上传
+      //图片上传
         uploadphoto(e){
           var file = e.target.files[0];
           var filesize = file.size;
@@ -255,60 +236,11 @@
             console.log(imgcode);
           }
         },
-
-//原来el-upload标签下的上传图片
-      // handleAvatarSuccess(res, file) {
-      //   this.imageUrl = URL.createObjectURL(file.raw);
-      // },
-      // beforeAvatarUpload(file) {
-      //   const isJPG = file.type === 'image/jpeg';
-      //   const isLt2M = file.size / 1024 / 1024 < 2;
-
-      //   if (!isJPG) {
-      //     this.$message.error('上传头像图片只能是 JPG 格式!');
-      //   }
-      //   if (!isLt2M) {
-      //     this.$message.error('上传头像图片大小不能超过 2MB!');
-      //   }
-      //   return isJPG && isLt2M;
-      // },
-
-      //点击上传图片，上传成功返回图片路径
-      // uploadFiles(){
-      //   var That=this;
-      //   let file = this.$refs.upload.$refs['upload-inner'].$refs.input;//获取文件数据
-      //   let fileList= file.files;
-      //   var imgFile;
-      //   let reader = new FileReader();
-      //   reader.readAsDataURL(fileList[0]);
-      //   reader.onload=function(e){
-      //     imgFile=e.target.result;
-      //     let obj={
-      //       id: "loginLogo",
-      //       configGroup:"logo",
-      //       configItem: "loginLogo",
-      //       itemValue: imgFile
-      //     }
-      //     return BaseApi.uploadFiles(obj).then((res)=>{
-      //       if(res.status=='SUCCESS'){
-      //         AlertBox('图片上传成功！','success',true).then(()=>{
-      //           return That.getSysLogo();
-      //         }
-      //         );
-      //       }
-      //       else{
-      //         Alert('图片上传失败！',res);
-      //         return ''
-      //       }
-      //     })
-      //   }
-      // },
-
+        
       //返回管理中心
       goBack() {
       this.$router.go(-1);
     },
-
       //分页
        handleSizeChange(val) {
         this.offset = val;
@@ -353,7 +285,6 @@
         this.car = car;
         this.editdailgVisible =true
       },
-
 //修改表格表头背景色
        tableHeaderColor({row, column, rowIndex, columnIndex}){
          if(rowIndex === 0){
@@ -367,7 +298,6 @@
            return 'cell-grey'
          }
        },
-
       //添加汽车
       addcar(){
            this.$axios
@@ -416,7 +346,6 @@
         this.carForm.carmodel="";
         this.carForm.carnote="";
       },
-
 //库存数量增减
       addRow(row){
             //   console.log(row)
@@ -428,9 +357,7 @@
                     row.carstock = row.carstock - 1
                 }
       }
-
     },
-
     data() {
       return {
         tableData:[],
@@ -440,9 +367,6 @@
         total:10,
         editdailgVisible:false,
         adddialogVisible:false,
-<<<<<<< HEAD
-        imageUrl: ''
-=======
         carForm:{
             carname:"",
             carbrand:"",
@@ -452,48 +376,19 @@
             carmodel:"",
             carnote:""
         }
->>>>>>> 15a1aa5492a4379bde5035a37682709cb598a441
       };
     },
     
-
   }
 </script>
 
 <style>
-/* .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  } */
-
 .el-table-column{
   margin-bottom: 20px;
-
 }
 /* el-menu {
     border-right: solid 2px #0c0c0c;
     padding-left: 0;
     background-color: rgb(240, 30, 30);
 } */
-
-
 </style>
