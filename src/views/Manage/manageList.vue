@@ -14,52 +14,45 @@
       
           <el-menu-item index="1" width="100%" text-align="center">我的管理中心</el-menu-item>
         </el-menu> -->
-        <div>
+        <!-- <div>
           <h3 >我的管理中心</h3>
-        </div>
+        </div> -->
 
-        
-   
+  <div>
+    <el-row class="manarow">
+      <el-col :span="24" >
+        <div class="grid-content bg-purple-dark">
+          <h2>
+            我的管理中心<i class="fa fa-clipboard" aria-hidden="true"></i>
+          </h2>
+          </div>
+      </el-col>
+    </el-row>
+    <!-- 二等分 -->
+    <el-row class="manacol">
+    <el-col :span="12" >
       <div>
-        <el-aside width="200px" style=" margin-left: 0;">
-          <el-menu
-            :default-active="activeIndex2"
-            class="el-menu-demo"
-            mode="horizontal"
-            @select="handleSelect"
-            background-color="#FE929F"
-            text-color="#fff"
-            active-text-color="#FE929F"
-          >
-            <el-menu-item index="2">处理中心</el-menu-item>
-            <el-submenu index="3">
-              <el-menu-item index="3-1">选项1</el-menu-item>
-              <el-menu-item index="3-2">选项2</el-menu-item>
-              <el-menu-item index="3-3">选项3</el-menu-item>
-              <el-submenu index="3-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="2-4-1">选项1</el-menu-item>
-                <el-menu-item index="2-4-2">选项2</el-menu-item>
-                <el-menu-item index="2-4-3">选项3</el-menu-item>
-              </el-submenu>
-            </el-submenu>
-
-            <!-- <a href="http://localhost:8091/#/managecar" target="_blank">汽车管理</a>
-            <el-menu-item index="5"><a href="http://localhost:8091/#/manageuser" target="_blank">用户管理</a></el-menu-item>-->
-
-            <!-- 页面跳转 -->
-            <el-menu-item index="4">
+        <el-menu>
+          <el-menu-item index="4">
               <router-link to="/manageuser">前往用户管理中心</router-link>
             </el-menu-item>
-            <el-menu-item index="5">
+          </el-menu>
+          </div>
+    </el-col>
+    <el-col :span="12">
+      <div >
+        <el-menu >
+          <el-menu-item index="5">
               <router-link to="/managecar">前往汽车管理中心</router-link>
             </el-menu-item>
           </el-menu>
-        </el-aside>
-        <!-- <el-main>请在左边选择管理详情，这里啥也没有！</el-main> -->
       </div>
-  
+    </el-col>
+    </el-row>
   </div>
+  </div>
+   
+      
 </template>
 
 <script>
@@ -67,37 +60,26 @@ export default {
   name: "managelist",
   data() {
     return {
-      activeIndex: "1",
-      activeIndex2: "1"
+      
     };
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    }
+    
   }
 };
 </script>
 
 <style>
-.el-container {
-  /* position: absolute; */
-  width: 100%;
-  /* top: 0;
-  left: 0;
-  bottom: 0; */
+.manarow{
+  background-color: rgb(84, 218, 44);
+  height: 100px;
+  text-align: center;
 }
 
-.el-aside {
-  background-color: #fcd3d1;
+.manacol{
+  height: 583px;
+  background-color: rgb(246, 255, 196);
 }
-.el-aside .el-menu {
-  border-right: none;
-}
-.el-main {
-  background-color: #e5edf8;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
-}
+
+
 </style>
