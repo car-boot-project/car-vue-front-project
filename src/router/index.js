@@ -17,6 +17,11 @@ import About from '../views/User/About.vue'
 
 Vue.use(VueRouter) 
   const routes = [
+    {
+      path:"/",
+      redirect:"/home",
+      component:Home,
+    },
   {
     path: '/home',
     name: 'Home',

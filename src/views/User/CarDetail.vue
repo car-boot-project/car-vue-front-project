@@ -10,23 +10,24 @@
       <el-page-header @back="goBack" content></el-page-header>
 
       <el-card class="box-card">
-        <div class="container">
+      
           <el-row :gutter="80">
-            <el-col :span="12">
+            <el-col :span="10">
               <el-row>
-                <div class="pro-img">
+                <div class="pro_img">
                   <img v-bind:src="car.carimg" alt="详情图" width="100%" />
                 </div>
               </el-row>
               <el-row>
                 <el-button
+                class="collect"
                   v-if="ifCollect"
                   type="warning"
                   icon="el-icon-star-on"
                   circle
                   @click="cancelCollect"
                 ></el-button>
-                <el-button v-else type="warning" icon="el-icon-star-off" circle @click="addCollect"></el-button>
+                <el-button class="collect" v-else type="warning" icon="el-icon-star-off" circle @click="addCollect"></el-button>
 
                 <!-- <i v-if="ifCollect" class="el-icon-star-off" style="color=yellow"></i>
                 <i v-else class="el-icon-star-on" style="color=yellow" ></i>-->
@@ -35,7 +36,7 @@
               </el-row>
             </el-col>
 
-            <el-col :span="12">
+            <el-col :span="14">
               <el-row>
                 <el-col :span="24">
                   <h3>{{car.carname}}</h3>
@@ -46,10 +47,17 @@
                   <p>价格：</p>
                 </el-col>
                 <el-col :span="20" class="price">
-                  <h4>￥{{car.carprice}}</h4>
+                  <h4 class="Price">￥{{car.carprice}}</h4>
                 </el-col>
               </el-row>
-
+<el-row>
+                <el-col :span="4">
+                  <p>车型：</p>
+                </el-col>
+                <el-col :span="20">
+                  <p class="black_left">{{car.carmodel}}</p>
+                </el-col>
+              </el-row>
               <el-row>
                 <el-col :span="4">
                   <p>详情：</p>
@@ -68,14 +76,16 @@
               </el-row>
               <el-row>
                 <el-col>
-                  <el-button type="primary" plain>立即购买</el-button>
+                  <el-button type="primary" plain @click="buyNow" id="onfocus" >
+                    立即购买
+                    </el-button>
                 </el-col>
               </el-row>
             </el-col>
           </el-row>
 
           <!-- /.pro-text -->
-        </div>
+       
       </el-card>
     </div>
   </div>
@@ -183,23 +193,45 @@ export default {
           if (res.data.status == 0) {
             _this.getData();
             this.$message({
-              message: "取消收藏成功！",
-              type: "success"
+              message: "取消收藏",
+              type: "info"
             });
           }
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    //立即购买
+    buyNow(){
+       this.$confirm('您将花费'+this.car.carprice+'元，是否购买？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          document.getElementById("onfocus").blur();
+          this.$message({
+            type: 'success',
+            message: '购买成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消购买'
+          });          
+        });
+      
     }
   }
 };
 </script>
 
 <style scoped>
+
 .box-card {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
+  padding: 2vw 6vw 2vw 6vw;
   /* margin-top: 100px; */
   /* background-color: rgb(255, 236, 250); */
 }
@@ -207,21 +239,32 @@ export default {
   margin-bottom: 10px;
  
 }
-.el-col h4 {
+/* .el-col h4 {
   margin: 5px auto;
   color: red;
-}
+} */
 
 p {
   margin-top: 0;
   color: #999999;
 }
+.pro_img{
+  margin-top: 4vw;
+}
+.collect{
+  margin-top: 9vw;
+}
 .black_left {
   color: black;
   text-align: left;
 }
+.Price{
+   margin: 5px auto;
+  color: red;
+}
 .price {
   text-align: left;
+
   /* background-color:#E7E7E7; */
 }
 </style>
