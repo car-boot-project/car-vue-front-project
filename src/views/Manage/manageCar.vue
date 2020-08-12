@@ -131,69 +131,69 @@
   </div>
 
   <!-- 编辑汽车信息 -->
-  <!-- <el-dialog title="编辑汽车信息" :visible.sync="editdailgVisible" width="50%" @click="editdaillogClose">
-            <el-form ref="editFormRef" :model="car"  label-width="80px">
+  <el-dialog title="编辑汽车信息" :visible.sync="editdailgVisible" width="50%" @click="editdaillogClose">
+            <el-form ref="editFormRef" :model="this.tableData"  label-width="80px">
                 <el-form-item label="汽车编号" prop="carId">
-                    <el-input v-model="car.carId"></el-input>
+                    <el-input v-model="car.carid"></el-input>
                 </el-form-item>
                 <el-form-item label="汽车名称" prop="carName">
-                    <el-input v-model="car.carName"></el-input>
+                    <el-input v-model="car.carname"></el-input>
                 </el-form-item>
                 <el-form-item label="汽车品牌" prop="carBrand">
-                    <el-input v-model="car.carBrand"></el-input>
+                    <el-input v-model="car.carbrand"></el-input>
                 </el-form-item>
                 <el-form-item label="汽车型号" prop="carModel">
-                    <el-input v-model="car.carModel"></el-input>
+                    <el-input v-model="car.carmodel"></el-input>
                 </el-form-item>
                 <el-form-item label="图片链接" prop="carImg">
-                    <el-input v-model="car.carImg"></el-input>
+                    <el-input v-model="car.carimg"></el-input>
                 </el-form-item>
                 <el-form-item label="汽车价格" prop="carPrice">
-                    <el-input v-model="car.carPrice"></el-input>
+                    <el-input v-model="car.carprice"></el-input>
                 </el-form-item>
                 <el-form-item label="库存" prop="carStock">
-                    <el-input v-model="car.carStock"></el-input>
+                    <el-input v-model="car.carstock"></el-input>
                 </el-form-item>
                 <el-form-item label="汽车简介" prop="carNote">
-                    <el-input v-model="car.carName"></el-input>
+                    <el-input v-model="car.carnote"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
     <el-button @click="editdailgVisible = false">取 消</el-button>
     <el-button type="primary" @click="editcar">保 存</el-button>
   </span>
-        </el-dialog> -->
+        </el-dialog>
 
   <!-- 添加汽车 -->
-  <!-- <el-dialog title="添加汽车"  :visible.sync="adddialogVisible" width="50%" @click="adddialogClose">
-            <el-form ref="addFormRef" :model="car"  label-width="80px">
+  <el-dialog title="添加汽车"  :visible.sync="adddialogVisible" width="50%" @click="adddialogClose">
+            <el-form ref="addFormRef" :model="this.tableData"  label-width="80px">
                 <el-form-item label="汽车名" prop="carName">
-                    <el-input v-model="car.carName"></el-input>
+                    <el-input v-model="car.carname"></el-input>
                 </el-form-item>
                 <el-form-item label="品牌" prop="carBrand">
-                    <el-input v-model="car.carBrand"></el-input>
+                    <el-input v-model="car.carbrand"></el-input>
                 </el-form-item>
                 <el-form-item label="库存" prop="carStock ">
-                    <el-input v-model="car.carStock"></el-input>
+                    <el-input v-model="car.carstock"></el-input>
                 </el-form-item>
                 <el-form-item label="图片链接" prop="carImg">
-                    <el-input v-model="car.carImg"></el-input>
+                    <el-input v-model="car.carimg"></el-input>
                 </el-form-item>
                 <el-form-item label="价格" prop="carPrice">
-                    <el-input v-model="car.carPrice"></el-input>
+                    <el-input v-model="car.carprice"></el-input>
                 </el-form-item>
                 <el-form-item label="型号" prop="carModel">
-                    <el-input v-model="car.carModel"></el-input>
+                    <el-input v-model="car.carmodel"></el-input>
                 </el-form-item>
                 <el-form-item label="简介" prop="carNote">
-                    <el-input v-model="car.carNote"></el-input>
+                    <el-input v-model="car.carnote"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
     <el-button @click="adddialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="addcar">添 加</el-button>
   </span>
-        </el-dialog> -->
+        </el-dialog>
 
 
 </div>
@@ -233,6 +233,7 @@
             .then(res => {
               // console.log(res.data);
               this.tableData = res.data.list;
+              this.car = res.data.list;
               this.total = res.data.total;
       
             })
@@ -266,7 +267,7 @@
        },
 
       addcar(){
-
+          
       },
       editcar(){
 
@@ -314,9 +315,12 @@
     data() {
       return {
         tableData:[],
+        car:[],
         page:1,
         offset:5,
-        total:10
+        total:10,
+        editdailgVisible:false,
+        adddialogVisible:false
       };
     },
     
