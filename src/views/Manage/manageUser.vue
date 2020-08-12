@@ -79,6 +79,17 @@
     </el-table-column> -->
 
   </el-table>
+   <div class="block">
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="this.page"
+      :page-sizes="[5, 10, 20, 40]"
+      :page-size="this.offset"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="this.total">
+    </el-pagination>
+  </div>
 </div>
 </template>
 
@@ -92,6 +103,7 @@
             .get("admin/get_all_user_by_page?page="+this.page+"&offset="+this.offset)
             .then(res => {
               this.tableData = res.data.list;
+              this.total = res.data.total;
                 // console.log(res.data);
             })
     },
@@ -102,6 +114,16 @@
         this.$router.push('/managelist');
       },
 
+      getData(page,offset){
+       this.$axios
+            .get("admin/get_all_user_by_page?page="+this.page+"&offset="+this.offset)
+            .then(res => {
+              console.log(res.data);
+              this.tableData = res.data.list;
+              this.total = res.data.total;
+      
+            })
+      },
       deleteRow(index, rows) {
         rows.splice(index, 1);
       },
@@ -119,13 +141,22 @@
            return 'cell-grey'
          }
        },
+        handleSizeChange(val) {
+        this.offset = val;
+        this.getData(this.page,this.offset);
+      },
+      handleCurrentChange(val) {
+        this.page = val;
+        this.getData(this.page,this.offset)
+      }
     },
     data() {
       return {
         //value2:true,
         tableData: [],
         page:1,
-        offset:10
+        offset:5,
+        total:10
       }
     }
   }
