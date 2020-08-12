@@ -58,7 +58,7 @@
 --->
     <el-table-column fixed="right" label="操作" width="180">
       <template slot-scope="scope">
-    <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
+    <el-button @click.native.prevent="deleteRow(scope.$index, scope.row,tableData)"
     type="danger" plain icon="el-icon-delete">删除</el-button>
       </template>
     </el-table-column>
@@ -125,8 +125,14 @@
              
             })
       },
-      deleteRow(index, rows) {
+      deleteRow(index, row,rows) {
         rows.splice(index, 1);
+         this.$axios
+            .post("admin/delete?userid="+row.userid)
+            .then(res => {
+              console.log(res.data);
+            })
+        console.log(row.userid)
       },
        
        //修改表格表头背景色
@@ -165,13 +171,7 @@
             //  console.log(res.data);
             })
         }
-        // if(val === 1){
-        //    this.$axios
-        //     .post("admin/lock?userid="+val)
-        //     .then(res => {
-             
-        //     })
-        // }
+       
       }
     },
     data() {
