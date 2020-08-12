@@ -123,11 +123,11 @@
 				</li>
 				<li>
 					<i class="fa fa-compass"></i>
-					<p>我的收藏</p>
+					<p @click="toCollections">我的收藏</p>
 				</li>
-				<li>
+				<li >
 					<i class="fa fa-user-o"></i>
-					<p>关于我们</p>
+					<p @click="toAbout">关于我们</p>
 				</li>
 			</ul>
 </div>
@@ -145,9 +145,17 @@ export default {
 				item:[require('../../assets/timg01.jpg'),require('../../assets/timg.jpg'),require('../../assets/timg01.jpg'),require('../../assets/timg.jpg')]
             }},
     methods: {
+	toCollections(){
+		this.$router.push("/collections");
+	},
+	// 到达详情页
     toCardetail(){
     this.$router.push("/cardetail");
 	},
+	// 关于我们
+	toAbout(){
+		this.$router.push("/about");
+	}
     }
   }
 </script>

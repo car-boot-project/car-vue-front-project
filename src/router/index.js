@@ -13,9 +13,9 @@ import manageCar from '../views/Manage/manageCar.vue'
 import manageList from '../views/Manage/manageList.vue'
 
 import Home from '../views/User/Home.vue'
+import About from '../views/User/About.vue'
 
-Vue.use(VueRouter)
-
+Vue.use(VueRouter) 
   const routes = [
   {
     path: '/home',
@@ -25,10 +25,7 @@ Vue.use(VueRouter)
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component:About,
   },
   // 用户注册
   {
