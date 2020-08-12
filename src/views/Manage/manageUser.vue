@@ -125,7 +125,7 @@
        this.$axios
             .get("admin/get_all_user_by_page?page="+this.page+"&offset="+this.offset)
             .then(res => {
-              console.log(res.data);
+              // console.log(res.data);
               this.tableData = res.data.list;
               this.total = res.data.total;
              
@@ -136,9 +136,14 @@
          this.$axios
             .post("admin/delete?userid="+row.userid)
             .then(res => {
-              console.log(res.data);
+              if(res.data.status === 0){
+               this.$message({
+                    message: "删除成功！",
+                    type: "success"
+                  });
+              }
             })
-        console.log(row.userid)
+        // console.log(row.userid)
       },
        
        //修改表格表头背景色

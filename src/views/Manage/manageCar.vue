@@ -112,11 +112,12 @@
 
   <el-table-column fixed="right" label="编辑" width="180" align="center">
       <template slot-scope="scope">
-        <el-button type="primary" icon="el-icon-edit" circle  size="mini" @click="ShowEditCar(scope.row.carId)"></el-button>
-        <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="danger" icon="el-icon-delete" plain size="mini">删除</el-button>
+        <el-button type="primary" icon="el-icon-edit" circle  size="mini" @click="ShowEditCar(scope.row)"></el-button>
+        <el-button @click.native.prevent="deleteRow(scope.$index,scope.row, tableData)" type="danger" icon="el-icon-delete" plain size="mini">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
+  <!-- 分页 -->
   <div class="block">
     <el-pagination
       @size-change="handleSizeChange"
@@ -131,7 +132,7 @@
 
   <!-- 编辑汽车信息 -->
   <el-dialog title="编辑汽车信息" :visible.sync="editdailgVisible" width="50%" @click="editdaillogClose">
-            <el-form ref="editFormRef" :model="this.tableData"  label-width="80px">
+            <el-form ref="editFormRef" v-model="this.car"  label-width="80px">
                 <el-form-item label="汽车编号" prop="carId">
                     <el-input v-model="car.carid"></el-input>
                 </el-form-item>
@@ -165,27 +166,27 @@
 
   <!-- 添加汽车 -->
   <el-dialog title="添加汽车"  :visible.sync="adddialogVisible" width="50%" @click="adddialogClose">
-            <el-form ref="addFormRef" :model="this.tableData"  label-width="80px">
+            <el-form ref="addFormRef" v-model="this.carForm"  label-width="80px">
                 <el-form-item label="汽车名" prop="carName">
-                    <el-input v-model="car.carname"></el-input>
+                    <el-input v-model="carForm.carname"></el-input>
                 </el-form-item>
                 <el-form-item label="品牌" prop="carBrand">
-                    <el-input v-model="car.carbrand"></el-input>
+                    <el-input v-model="carForm.carbrand"></el-input>
                 </el-form-item>
                 <el-form-item label="库存" prop="carStock ">
-                    <el-input v-model="car.carstock"></el-input>
+                    <el-input v-model="carForm.carstock"></el-input>
                 </el-form-item>
                 <el-form-item label="图片链接" prop="carImg">
-                    <el-input v-model="car.carimg"></el-input>
+                    <el-input v-model="carForm.carimg"></el-input>
                 </el-form-item>
                 <el-form-item label="价格" prop="carPrice">
-                    <el-input v-model="car.carprice"></el-input>
+                    <el-input v-model="carForm.carprice"></el-input>
                 </el-form-item>
                 <el-form-item label="型号" prop="carModel">
-                    <el-input v-model="car.carmodel"></el-input>
+                    <el-input v-model="carForm.carmodel"></el-input>
                 </el-form-item>
                 <el-form-item label="简介" prop="carNote">
-                    <el-input v-model="car.carnote"></el-input>
+                    <el-input v-model="carForm.carnote"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -209,7 +210,8 @@
             .then(res => {
               this.tableData = res.data.list;
               this.total = res.data.total;
-                console.log(res.data);
+              this.car = res.data.list;
+                // console.log(res.data);
             })
     },
     methods: {
@@ -233,14 +235,24 @@
             .then(res => {
               // console.log(res.data);
               this.tableData = res.data.list;
-              this.car = res.data.list;
+              // this.car = res.data.list;
               this.total = res.data.total;
       
             })
       },
       //删除行操作
-      deleteRow(index, rows) {
+      deleteRow(index, row, rows) {
         rows.splice(index, 1);
+         this.$axios
+            .post("admin/delete_by_id?carid="+row.carid)
+            .then(res => {
+              if(res.data.status === 0){
+                 this.$message({
+                    message: "删除成功！",
+                    type: "success"
+                  });
+              }
+            })
       },
       showAdddaillog(){
         this.adddialogVisible =true
@@ -248,7 +260,8 @@
       adddialogClose(){
         this.$refs.addFormRef.resetFields()
       },
-      ShowEditCar(){
+      ShowEditCar(car){
+        this.car = car;
         this.editdailgVisible =true
       },
 
@@ -266,18 +279,55 @@
          }
        },
 
+      //添加汽车
       addcar(){
-          
+           this.$axios
+            .post("admin/insert_car",this.$qs.stringify(this.carForm))
+            .then(res => {
+              if(res.data.status === 0){
+               this.$message({
+                    message: "添加成功！",
+                    type: "success"
+                  });
+                this.adddialogClose();
+                this.adddialogVisible =false;
+              }
+              // console.log(res.data);
+            })
+            this.getData(this.page,this.offset);
       },
       editcar(){
-
+        this.$axios
+            .post("admin/update_car",this.$qs.stringify(this.car))
+            .then(res => {
+              if(res.data.status === 0){
+               this.$message({
+                    message: "修改成功！",
+                    type: "success"
+                  });
+                this.editdailgVisible =false;
+              }
+              // console.log(res.data);
+            })
       },
       adddialogClose(){
         this.$refs.addFormRef.resetFields();
+        this.resetCarForm();
       },
       editdaillogClose(){
         this.$refs.editFormRef.resetFields();
+        
       },
+      resetCarForm(){
+        this.carForm.carname="";
+        this.carForm.carbrand="";
+        this.carForm.carstock="";
+        this.carForm.carimg="";
+        this.carForm.carprice="";
+        this.carForm.carmodel="";
+        this.carForm.carnote="";
+      },
+
 //库存数量增减
       addRow(row){
             //   console.log(row)
@@ -291,36 +341,25 @@
       }
 
     },
-    
-      
-    //库存修改
-    // handleChange(quantity, carName) {
-    //   //   console.log(quantity);
-    //   //   console.log(cartId);
-    //   this.$axios
-    //     .post("cart/updatequantity", { carName, quantity })
-    //     .then(res => {
-    //       if (res.data > 0) {
-    //         this.$message.success("操作成功");
-    //       } else {
-    //         this.$message.success("操作失败");
-    //       }
-    //     })
-    //     .catch(e => {
-    //       this.$message.error("服务器内部发生异常");
-    //       console.log(e);
-    //     });
-    // },
 
     data() {
       return {
         tableData:[],
-        car:[],
+        car:{},
         page:1,
         offset:5,
         total:10,
         editdailgVisible:false,
-        adddialogVisible:false
+        adddialogVisible:false,
+        carForm:{
+            carname:"",
+            carbrand:"",
+            carstock:"",
+            carimg:"",
+            carprice:"",
+            carmodel:"",
+            carnote:""
+        }
       };
     },
     
