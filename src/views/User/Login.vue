@@ -66,7 +66,7 @@
 <style scoped>
 .login {
   background-color: rgb(187, 159, 214);
-  height: 45vw;
+  height: 48vw;
 }
 /* 布局 */
 .el-row {
@@ -93,7 +93,7 @@
 
 .box-card {
   width: 100%;
-  height: 400px;
+  height: 32vw;
   /* position: relative; */
   margin-top: 5em;
   border-radius: 30px;
