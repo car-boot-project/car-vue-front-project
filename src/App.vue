@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <el-header style="padding: 0 0">
-      <div class="search">
-        <p v-if="this.$getSessionStorage('user')==null">
+      <div v-if="this.$route.path!='/login'&&this.$route.path!='/register'" class="search">
+        <p v-if="this.$getSessionStorage('user')==null&&this.$getSessionStorage('admin')==null">
           <el-link :underline="false" @click="toLogin" type="danger">
             <i class="el-icon-user"></i>
             登录
@@ -10,10 +10,16 @@
 
          
         </p>
-        <p v-else>
-          <el-link :underline="false" @click="cancel">
+        <p v-else-if="this.$getSessionStorage('user')!=null">
+          <el-link :underline="false" @click="cancelUser">
             <i class="el-icon-user-solid"></i>
             {{this.$getSessionStorage('user').username}}
+          </el-link>
+        </p>
+        <p v-else-if="this.$getSessionStorage('admin')!=null">
+          <el-link :underline="false" @click="cancelAdmin">
+            <i class="el-icon-user-solid"></i>
+            {{this.$getSessionStorage('admin').username}}
           </el-link>
         </p>
       </div>
@@ -76,7 +82,7 @@
 <script>
 export default {
   methods: {
-    cancel() {
+    cancelUser() {
       this.$confirm("是否退出登录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -85,6 +91,27 @@ export default {
         .then(() => {
           this.$removeSessionStorage("user");
           this.$router.go(0);
+          this.$message({
+            type: "success",
+            message: "已退出"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
+    },
+    cancelAdmin() {
+      this.$confirm("是否退出登录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$removeSessionStorage("admin");
+          this.$router.push({ name: "Home" });
           this.$message({
             type: "success",
             message: "已退出"
