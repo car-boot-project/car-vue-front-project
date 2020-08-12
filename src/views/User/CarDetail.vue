@@ -193,8 +193,8 @@ export default {
           if (res.data.status == 0) {
             _this.getData();
             this.$message({
-              message: "取消收藏成功！",
-              type: "success"
+              message: "取消收藏",
+              type: "info"
             });
           }
         })
