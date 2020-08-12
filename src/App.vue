@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-header style="padding: 0 0">
+    <el-header class="appHeader" style="padding: 0 0">
       <div v-if="this.$route.path!='/login'&&this.$route.path!='/register'" class="search">
         <p v-if="this.$getSessionStorage('user')==null&&this.$getSessionStorage('admin')==null">
           <el-link :underline="false" @click="toLogin" type="danger">
@@ -60,14 +60,15 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 } */
-.el-header,
-.el-container {
+.appHeader
+ {
   /* text-align: center; */
   /* line-height: 1vw; */
   position: absolute;
   top: 1vw;
   width: 100%;
   right: 3vw;
+  z-index: 2;
 
   
 }
