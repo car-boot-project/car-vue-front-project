@@ -59,11 +59,11 @@
       </template>
     </el-table-column>
 
-    <el-table-column prop='carStock' label='汽车库存' width="160">
+    <!-- <el-table-column prop='carStock' label='汽车库存' width="160">
       <template slot-scope="scope">
         {{scope.row.carstock}}
       </template>
-    </el-table-column>
+    </el-table-column> -->
 
     <el-table-column prop="carNote" label="汽车简介" width="280">
       <template slot-scope="scope">
@@ -72,7 +72,7 @@
     </el-table-column>
 
 <!-- 库存增减 -->
-     <!-- <el-table-column align="center" label=" " width="60">
+     <el-table-column align="center" label=" " width="60">
       <template slot-scope="scope">
             <span style="color:#35EB15;font-size:16px" @click.prevent="addRow(scope.row,scope.$index)"><i class="el-icon-circle-plus"></i></span>
       </template>
@@ -80,8 +80,8 @@
 
      <el-table-column prop="stock" label="库存" align="center" width="110">
          <template slot-scope="scope">
-              <el-input v-model="scope.row.number" oninput="value=value.replace(/[^\d]/g,'')" maxlength="3">
-                   {{scope.row.stock}}
+              <el-input v-model="scope.row.carstock" oninput="value=value.replace(/[^\d]/g,'')" maxlength="3">
+                   {{scope.row.carstock}}
               </el-input>
          </template>
       </el-table-column>
@@ -90,7 +90,7 @@
                <template slot-scope="scope">
                     <span style="color:#FFB7E9;font-size:16px" @click.prevent="delRow(scope.row,scope.$index)"><i class="el-icon-remove"></i></span>
                </template>
-      </el-table-column> -->
+      </el-table-column>
 
       <!-- ///////////////////////////// -->
       <!-- <el-table-column label="库存" align="center" width="200">
@@ -117,8 +117,18 @@
         <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="danger" icon="el-icon-delete" plain size="mini">删除</el-button>
       </template>
     </el-table-column>
-
   </el-table>
+  <div class="block">
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="this.page"
+      :page-sizes="[5, 10, 20, 40]"
+      :page-size="this.offset"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="this.total">
+    </el-pagination>
+  </div>
 
   <!-- 编辑汽车信息 -->
   <!-- <el-dialog title="编辑汽车信息" :visible.sync="editdailgVisible" width="50%" @click="editdaillogClose">
@@ -193,11 +203,39 @@
 <script>
   export default {
  name: "managecar",
-        
+     mounted(){
+      const _this = this;
+       this.$axios
+            .get("admin/get_all_car_by_page?page="+this.page+"&offset="+this.offset)
+            .then(res => {
+              this.tableData = res.data.list;
+              this.total = res.data.total;
+                console.log(res.data);
+            })
+    },
     methods: {
       //返回管理中心
         tomanageList() {
         this.$router.push('/managelist');
+      },
+      //分页
+       handleSizeChange(val) {
+        this.offset = val;
+        this.getData(this.page,this.offset);
+      },
+      handleCurrentChange(val) {
+        this.page = val;
+        this.getData(this.page,this.offset)
+      },
+       getData(page,offset){
+       this.$axios
+            .get("admin/get_all_car_by_page?page="+this.page+"&offset="+this.offset)
+            .then(res => {
+              // console.log(res.data);
+              this.tableData = res.data.list;
+              this.total = res.data.total;
+      
+            })
       },
       //删除行操作
       deleteRow(index, rows) {
@@ -240,16 +278,16 @@
         this.$refs.editFormRef.resetFields();
       },
 //库存数量增减
-      // addRow(row){
-      //       //   console.log(row)
-      //           row.number = row.number+1
-      // },
-      // delRow(row){
-      //       //   console.log(row)
-      //           if (row.number != 0) {
-      //               row.number = row.number - 1
-      //           }
-      // }
+      addRow(row){
+            //   console.log(row)
+                row.carstock = row.carstock+1
+      },
+      delRow(row){
+            //   console.log(row)
+                if (row.carstock != 0) {
+                    row.carstock = row.carstock - 1
+                }
+      }
 
     },
     
@@ -277,7 +315,8 @@
       return {
         tableData:[],
         page:1,
-        offset:20
+        offset:5,
+        total:10
       };
     },
     
