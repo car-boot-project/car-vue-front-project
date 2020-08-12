@@ -68,7 +68,7 @@
   top: 1vw;
   width: 100%;
   right: 3vw;
-  z-index: 2;
+  z-index: 1;
 
   
 }
