@@ -1,7 +1,7 @@
 <template>
 <div class="about">
   <div id="round" style="float:left">
-  <el-menu @click="toHome">
+  <el-menu>
     <el-menu-item>
       <el-link>
         <i class="el-icon-back"></i>返回首页
