@@ -1,18 +1,18 @@
 <template>
   <div class="home">
-    <el-row class="homeHeader">
-      <el-col :span="8">
-        <p>买立达</p>
-      </el-col>
-      <el-col :span="16">
-        <div class="search-main">
-          <el-input placeholder="请输入内容" v-model="carname" @change="toSearch">
-            <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          </el-input>
-        </div>
-      </el-col>
-    </el-row>
+ <el-container style="width:100%;height:8vw;background-color: rgba(180, 56, 118,0.4); border-radius: 10px;">
+  <el-aside width= 20vw>买立达</el-aside>
+  <el-container>
+    <el-main>
+    <div class="search-main">
+    <el-input placeholder="请输入内容" v-model="carname" @change="toSearch">
+      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+    </el-input>
+  </div>
+  </el-main>
 
+  </el-container>
+</el-container>
     <!-- 图片轮播 -->
     <el-row>
       <div>
@@ -86,23 +86,31 @@ export default {
     return {
       carname:"",
       page: 1,
-      offset: 9,
+      offset: 5,
       cars: [],
       carImg: require("../../assets/timg.jpg"),
       carName: "奔驰 gl450",
       carPrice: "100000.00",
       input: "",
       item: [
+        require("../../assets/timg 04.jpg"),
+        require("../../assets/timg04.jpg"),
+        require("../../assets/timg03.jpg"),
         require("../../assets/timg01.jpg"),
-        require("../../assets/timg.jpg"),
-        require("../../assets/timg01.jpg"),
-        require("../../assets/timg.jpg"),
       ],
     };
   },
   methods: {
-    toCollections() {
-      this.$router.push("/collections");
+       toCollections() {
+       if (this.$getSessionStorage("user") === null) {
+        this.$message({
+          message: "请先登录！",
+          type: "warning",
+        });
+        return;
+      } else {
+        this.$router.push("/collections");
+      }
     },
     // 到达详情页
     toDetail(row) {
@@ -141,13 +149,7 @@ export default {
 };
 </script>
 <style>
-/* 主页页头 */
-.homeHeader {
-  width: 100%;
-  height: 9vw;
-  background-color: rgba(240, 98, 185, 0.5);
-  text-align: center;
-}
+
 /* 走马灯 */
 .el-carousel__item h3 {
   color: #475669;
@@ -172,7 +174,35 @@ export default {
   border-style: dashed;
   border: #00ffff;
 }
+/* 搜索部分 */
+.el-aside {
+  
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size:6vw;
+  font-style:italic;
+  color: #ffffff;
+  text-align:unset;
+	line-height: 5vw;
+  font-weight: 400;
+  text-shadow:2px 2px #00ffff;
+  margin-left: 2vw;
+  line-height: 6vw;
+  margin-top:1vw;
+ }
 
+
+.el-main {
+  text-align: center;
+  line-height: 1vw;
+  /* background-color: rgba(0,0,0,0.5);  */
+  }
+
+.search-main{
+
+  padding-top: 2vw;
+  width: 30%;
+  align-content: center;
+}
 /* 商品推荐 */
 /****************** 推荐商家部分 ******************/
 .recommend {
@@ -248,7 +278,7 @@ export default {
 /* 商品推荐部分 */
 .cartype {
   width: 100%;
-  height: 110vw;
+  height: 80vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

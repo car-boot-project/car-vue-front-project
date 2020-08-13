@@ -8,6 +8,9 @@
     </div>
 
     <div style="margin-top:120px;width:100%;">
+      <div style="float:right;margin-top:10px">
+       <el-link type="warning" @click="toHome">返回主页</el-link>
+      </div>
       <el-table
         :data="tableData"
         style="width: 100% text-align: center"
@@ -35,6 +38,7 @@
           </div>
         </el-table-column>
       </el-table>
+
     </div>
   </div>
 </template>
@@ -54,10 +58,10 @@ export default {
   },
   components: {},
   methods: {
-    handleClick(row) {
-      console.log(row);
-    },
-
+   
+     toHome(){
+          this.$router.push("/home");
+      },
     //表格样式
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex === 1) {
