@@ -145,7 +145,7 @@ export default {
         });
     },
     toDetail(row) {
-       this.$setSessionStorage("carid", row);
+       this.$setSessionStorage("carid", row.carid);
       this.$router.push({
         name: "CarDetail"
         
