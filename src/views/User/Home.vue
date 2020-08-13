@@ -14,19 +14,17 @@
     </el-row>
 
     <!-- 图片轮播 -->
-	<el-row>
-
-	
-    <div>
-      <el-carousel indicator-position="outside" height="50vw">
-        <el-carousel-item v-for="(item,index) in item" :key="index">
-          <div class="item-img">
-            <img :src="item" />
-          </div>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
-</el-row>
+    <el-row>
+      <div>
+        <el-carousel indicator-position="outside" height="50vw">
+          <el-carousel-item v-for="(item, index) in item" :key="index">
+            <div class="item-img">
+              <img :src="item" />
+            </div>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+    </el-row>
     <!-- <div>
 <el-row :gutter="20">
   <el-col :span="8">
@@ -72,48 +70,18 @@
     </div>
 
     <ul class="cartype">
-      <li>
-        <img :src="carImg" />
+      <li v-for="(car, index) in cars" :key="index">
+        <img :src="car.carimg" />
         <div class="cartype-p">
-          <p>{{carName}}</p>
-          <h3>&#165;{{carPrice}}</h3>
+          <p>{{ car.carname }}</p>
+          <h3>&#165;{{ car.carprice }}</h3>
         </div>
-        <input type="button" value="了解更多" class="button-b" @click="toCardetail" />
-      </li>
-      <li>
-        <img :src="carImg" />
-        <div class="cartype-p">
-          <p>{{carName}}</p>
-          <h3>&#165;{{carPrice}}</h3>
-        </div>
-        <input type="button" value="了解更多" class="button-b" @click="toCardetail" />
-      </li>
-
-      <li>
-        <img :src="carImg" />
-        <div class="cartype-p">
-          <p>{{carName}}</p>
-          <h3>&#165;{{carPrice}}</h3>
-        </div>
-        <input type="button" value="了解更多" class="button-b" @click="toCardetail" />
-      </li>
-
-      <li>
-        <img :src="carImg" />
-        <div class="cartype-p">
-          <p>{{carName}}</p>
-          <h3>&#165;{{carPrice}}</h3>
-        </div>
-        <input type="button" value="了解更多" class="button-b" @click="toCardetail" />
-      </li>
-
-      <li>
-        <img :src="carImg" />
-        <div class="cartype-p">
-          <p>{{carName}}</p>
-          <h3>&#165;{{carPrice}}</h3>
-        </div>
-        <input type="button" value="了解更多" class="button-b" @click="toCardetail" />
+        <input
+          type="button"
+          value="了解更多"
+          class="button-b"
+          @click="toDetail(car.carid)"
+        />
       </li>
     </ul>
 
@@ -137,8 +105,24 @@
 <script>
 export default {
   name: "Home",
+  mounted() {
+    const _this = this;
+    this.$axios
+      .get(
+        "admin/get_all_car_by_page?page=" + this.page + "&offset=" + this.offset
+      )
+      .then((res) => {
+        //  console.log(res.data);
+        this.cars = res.data.list;
+        // this.car = res.data.list;
+        // console.log(res.data);
+      });
+  },
   data: function() {
     return {
+      page: 1,
+      offset: 9,
+      cars: [],
       carImg: require("../../assets/timg.jpg"),
       carName: "奔驰 gl450",
       carPrice: "100000.00",
@@ -147,8 +131,8 @@ export default {
         require("../../assets/timg01.jpg"),
         require("../../assets/timg.jpg"),
         require("../../assets/timg01.jpg"),
-        require("../../assets/timg.jpg")
-      ]
+        require("../../assets/timg.jpg"),
+      ],
     };
   },
   methods: {
@@ -156,14 +140,27 @@ export default {
       this.$router.push("/collections");
     },
     // 到达详情页
-    toCardetail() {
-      this.$router.push("/cardetail");
+    toDetail(row) {
+      if (this.$getSessionStorage("user") === null) {
+        this.$message({
+          message: "请先登录！",
+          type: "warning",
+        });
+        return;
+      } else {
+        this.$router.push({
+          name: "CarDetail",
+          params: {
+            carid: row,
+          },
+        });
+      }
     },
     // 关于我们
     toAbout() {
       this.$router.push("/about");
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
@@ -274,7 +271,7 @@ export default {
 /* 商品推荐部分 */
 .cartype {
   width: 100%;
-  height: 68vw;
+  height: 110vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
