@@ -221,7 +221,7 @@
           <el-input v-model="carForm.carnote"></el-input>
         </el-form-item>
         <el-form-item label="图片" prop="carImg">
-          <el-input type="file"></el-input>
+          <input type="file" id="id" name="image" class="getImgUrl_file" @change="shangc($event)" accept="image/jpg,image/jpeg,imagepng"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -244,7 +244,7 @@ export default {
       .then((res) => {
         this.tableData = res.data.list;
         this.total = res.data.total;
-        this.car = res.data.list;
+        // this.car = res.data.list;
         // console.log(res.data);
       });
   },
@@ -253,6 +253,45 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
+
+    //base64
+            shangc(e){
+            let files = document.getElementById('id').files[0];
+            // console.log(files);
+            // let name = document.getElementById('id').files[0].name;
+            // let arr = name.split('.');
+            // console.log(arr);
+            let fileSize = 0;
+            let fileMaxSize = 10240;//1M
+            if(files){
+                fileSize =files.size;          
+                if (fileSize > 10*1024*1024) {
+                    alert("文件大小不能大于10M！");
+                    file.value = "";
+                    return false;
+                }else if (fileSize <= 0) {
+                    alert("文件大小不能为0M！");
+                    file.value = "";
+                    return false;
+                }
+            }else{
+                return false;
+            }
+
+	   //转码base64
+            let reader = new FileReader();
+            let imgFile
+            // let that = this
+            reader.readAsDataURL(files)
+            reader.onload = e => {
+                imgFile = e.target.result;
+                let arr = imgFile.split(',')
+               this.carForm.carimg = arr.join();
+              //  console.log(this.carForm.carimg);
+            }
+            
+        },  
+
    
     //分页
     handleSizeChange(val) {
