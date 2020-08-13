@@ -111,7 +111,7 @@ export default {
   },
   created() {
     const _this = this;
-    _this.id = this.$route.params.carid;
+    _this.id = this.$getSessionStorage('carid');
     // const id = 10090212;
     //   console.log(id);
 

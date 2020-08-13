@@ -148,11 +148,10 @@ export default {
         });
         return;
       } else {
+		   this.$setSessionStorage("carid", row);
         this.$router.push({
           name: "CarDetail",
-          params: {
-            carid: row,
-          },
+     
         });
       }
     },
