@@ -37,14 +37,19 @@ Vue.prototype.$qs = qs;
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 
-
-Vue.prototype.$getCurDate = getCurDate;
-Vue.prototype.$setSessionStorage = setSessionStorage;
-Vue.prototype.$getSessionStorage = getSessionStorage;
-Vue.prototype.$removeSessionStorage = removeSessionStorage;
-Vue.prototype.$setLocalStorage = setLocalStorage;
-Vue.prototype.$getLocalStorage = getLocalStorage;
-Vue.prototype.$removeLocalStorage = removeLocalStorage;
+router.beforeEach(function(to, from, next) {
+  let user = sessionStorage.getItem('user');
+  let admin = sessionStorage.getItem('admin');
+  //除了登陆、注册、首页、商家列表、商家信息之外，都需要判断是否登陆了
+  if (!(to.path == '/' || to.path == '/home' || to.path ==
+  '/login' || to.path == '/register')) {
+  if (user == null&&admin==null) {
+  router.push('/home');
+  location.reload();
+  }
+  }
+  next();
+  });
 new Vue({
   router,
   render: h => h(App)

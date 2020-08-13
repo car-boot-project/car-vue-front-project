@@ -91,7 +91,7 @@ export default {
       })
         .then(() => {
           this.$removeSessionStorage("user");
-           this.$router.push({ name: "Home" });
+            this.$router.go(0);
           this.$message({
             type: "success",
             message: "已退出"
@@ -112,7 +112,7 @@ export default {
       })
         .then(() => {
           this.$removeSessionStorage("admin");
-          this.$router.push({ name: "Home" });
+       this.$router.go(0);
           this.$message({
             type: "success",
             message: "已退出"
