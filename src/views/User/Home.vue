@@ -25,43 +25,7 @@
         </el-carousel>
       </div>
     </el-row>
-    <!-- <div>
-<el-row :gutter="20">
-  <el-col :span="8">
-    <div class="grid-content bg-purple">
-     <el-container>
-      <div class="aside">
-       <img class="img" src="../../assets/lanbo.png"/>
-      </div>
-       <div class="main">兰博基尼</div>
-    </el-container>
-    </div>
-  </el-col>
-  <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-  
-</el-row>
-    </div>-->
-
-    <!-- 品牌显示-->
-    <!-- <div>
-<el-row :gutter="20">
-  <el-col :span="6">
-    <div class="grid-content bg-purple">
-     <el-container>
-      <div class="aside">
-       <img class="img" alt="Vue logo" src="../../assets/lanbo.png" />
-      </div>
-       <div class="main">兰博基尼</div>
-    </el-container>
-    </div>
-  </el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-</el-row>
-    </div>-->
-
+ 
     <!-- 商品推荐 -->
     <div class="recommend">
       <div class="recommend-line"></div>
