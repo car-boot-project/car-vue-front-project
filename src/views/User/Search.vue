@@ -31,7 +31,7 @@
             <i
               class="fa fa-hand-o-right fa-4x"
               aria-hidden="true"
-              @click="routeDemo(s.row)"
+              @click="toDetail(s.row.carid)"
               style="margin-left:70px"
             ></i>
             <!-- <el-button type="primary" size="small" @click="routeDemo(s.row)">查看</el-button> -->
@@ -58,9 +58,23 @@ export default {
   },
   components: {},
   methods: {
-   
+      toDetail(row) {
+      if (this.$getSessionStorage("user") === null) {
+        this.$message({
+          message: "请先登录！",
+          type: "warning",
+        });
+        return;
+      } else {
+		   this.$setSessionStorage("carid", row);
+        this.$router.push({
+          name: "CarDetail",
+     
+        });
+      }
+    },
      toHome(){
-          this.$router.push("/home");
+       this.$router.push("/home");
       },
     //表格样式
     tableRowClassName({ row, rowIndex }) {
