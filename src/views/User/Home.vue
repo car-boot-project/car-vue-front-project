@@ -6,7 +6,7 @@
       </el-col>
       <el-col :span="16">
         <div class="search-main">
-          <el-input placeholder="请输入内容" v-model="input">
+          <el-input placeholder="请输入内容" v-model="carname">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
         </div>
@@ -120,6 +120,7 @@ export default {
   },
   data: function() {
     return {
+      carname:"",
       page: 1,
       offset: 9,
       cars: [],
