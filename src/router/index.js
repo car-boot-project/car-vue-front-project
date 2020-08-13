@@ -14,6 +14,7 @@ import manageList from '../views/Manage/manageList.vue'
 
 import Home from '../views/User/Home.vue'
 import About from '../views/User/About.vue'
+import Search from '../views/User/Search.vue'
 
 Vue.use(VueRouter) 
   const routes = [
@@ -81,7 +82,12 @@ Vue.use(VueRouter)
     name:'manageList',
     component:manageList,
   },
-
+//  搜索
+{
+  path:'/search',
+  name:'Search',
+  component:Search,
+}
 ]
 
 const router = new VueRouter({
