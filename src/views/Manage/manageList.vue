@@ -41,7 +41,7 @@ export default {
         //如果是移除当前选中效果，返回上级菜单
         self.classList.remove('selected')
         //判断它的父级元素是不是顶级元素
-        if (!self.classList.contains('wrapper')) {
+        if (!self.parentNode.classList.contains('wrapper')) {
           if(this.list[index].name=='汽车管理')
             this.$router.push({path:'/manageCar'})
           if(this.list[index].name=='用户管理')
