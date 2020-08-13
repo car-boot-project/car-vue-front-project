@@ -111,12 +111,12 @@ export default {
   },
   created() {
     const _this = this;
-    _this.id = this.$route.params.carid;
+    _this.id = this.$getSessionStorage('carid');
     // const id = 10090212;
     //   console.log(id);
 
     this.$axios.get("car/detail?carid=" + _this.id).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       _this.car = res.data;
     });
 
@@ -129,7 +129,7 @@ export default {
         })
       )
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         _this.ifCollect = res.data;
       });
   },
@@ -146,7 +146,7 @@ export default {
           })
         )
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           _this.ifCollect = res.data;
         });
     },
@@ -165,7 +165,7 @@ export default {
           })
         )
         .then(res => {
-          console.log(res);
+          // console.log(res);
           _this.getData();
           if (res.data.status == 0) {
             _this.getData();
@@ -189,7 +189,7 @@ export default {
           })
         )
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data.status == 0) {
             _this.getData();
             this.$message({
@@ -252,7 +252,7 @@ p {
   margin-top: 4vw;
 }
 .collect{
-  margin-top: 9vw;
+  margin-top: 60px;
 }
 .black_left {
   color: black;

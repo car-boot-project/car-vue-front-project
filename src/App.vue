@@ -91,7 +91,7 @@ export default {
       })
         .then(() => {
           this.$removeSessionStorage("user");
-          this.$router.go(0);
+           this.$router.push({ name: "Home" });
           this.$message({
             type: "success",
             message: "已退出"
